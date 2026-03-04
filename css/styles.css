@@ -1543,3 +1543,34 @@ body *{
     grid-row: 2;
   }
 }
+.units-map{
+  display:grid;
+  grid-template-columns:1fr 120px 1fr;
+  grid-template-rows:auto auto;
+  gap:12px;
+  align-items:center;
+}
+
+.units-pool{
+  grid-column:2;
+  grid-row:1 / span 2;
+  background:rgba(255,255,255,0.08);
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+}
+
+.unit-btn{
+  padding:16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.05);
+  cursor:pointer;
+  font-weight:600;
+}
+
+.unit-btn:hover{
+  background:rgba(255,255,255,0.12);
+}
