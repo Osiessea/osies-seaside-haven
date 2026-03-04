@@ -468,6 +468,8 @@ function wireUnits(){
       if(counter){
         counter.textContent = selectedUnits.size + " seleccionadas";
       }
+        updateSummary();
+
 
     });
 
