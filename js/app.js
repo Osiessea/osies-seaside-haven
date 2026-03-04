@@ -433,8 +433,8 @@ total: nights * getSelectedNightly()
   const bookingId = await createBooking(payload);
 
   // ✅ bloquea noches (ATÓMICO: si alguna existe, falla)
-await holdDatesIfFree(payload.checkin, payload.checkout, bookingId);
-
+await holdDatesIfFree(payload.checkin, payload.checkout, bookingId, payload.units);
+        
   // ✅ refresca disponibilidad y repinta
   CONFIG.blockedDates = await loadBlockedDates();
   renderCalendar();
