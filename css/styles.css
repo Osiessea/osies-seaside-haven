@@ -1,0 +1,1479 @@
+:root{
+  /* Light Airbnb-ish theme */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f7f7f7;
+
+  --text: #111111;
+  --muted: #6a6a6a;
+
+  --stroke: rgba(0,0,0,.10);
+  --stroke2: rgba(0,0,0,.14);
+
+  /* Airbnb-like accent red */
+  --accent: #ff385c;
+  --accent2: #e61e4d;
+
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.10);
+  --shadow2: 0 6px 18px rgba(0,0,0,.08);
+
+  --focus: rgba(255,56,92,.20);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background: var(--bg);
+  overflow-x:hidden;
+}
+
+/* Kill the old dark background layer */
+.bg{ display:none; }
+
+a{ color:inherit; text-decoration:none; }
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:24px 18px 56px;
+}
+
+/* Topbar */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 18px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--stroke);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 220px;
+}
+.logo{
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  border: 1px solid var(--stroke);
+  background: #fff;
+}
+.brand-text{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.nav{ display:flex; align-items:center; gap:10px; }
+.nav-link{
+  padding:10px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+}
+.nav-link:hover{
+  color: var(--text);
+  background: var(--surface2);
+  border-color: var(--stroke);
+}
+
+/* Buttons */
+.btn{
+  border:1px solid var(--stroke2);
+  background:#fff;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius: 999px;
+  cursor:pointer;
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.btn:hover{
+  background: var(--surface2);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.btn:active{ transform: scale(.98); }
+
+.btn.primary{
+  border:none;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 10px 22px rgba(255,56,92,.20);
+}
+.btn.ghost{
+  background: transparent;
+  border-color: var(--stroke);
+  color: var(--muted);
+  box-shadow:none;
+}
+.btn.wide{ width:100%; border-radius: 12px; }
+
+/* Cards */
+.card{
+  border:1px solid var(--stroke);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+}
+.card.soft{
+  background: var(--surface2);
+  box-shadow:none;
+  border-color: rgba(0,0,0,.06);
+}
+
+/* Hero */
+.hero{
+  display:grid;
+  grid-template-columns: 1.10fr .90fr;
+  gap:16px;
+  padding:18px;
+  box-shadow: var(--shadow);
+  border-color: rgba(0,0,0,.08);
+}
+.badge{
+  display:inline-flex;
+  border:1px solid rgba(255,56,92,.22);
+  background: rgba(255,56,92,.08);
+  padding:8px 12px;
+  border-radius:999px;
+  color: #b40f2c;
+  font-size:12px;
+  font-weight:700;
+}
+
+.h1{
+  margin:12px 0 8px;
+  font-size:36px;
+  line-height:1.10;
+  letter-spacing:-.5px;
+}
+.lead{
+  margin:0;
+  color: var(--muted);
+  max-width: 62ch;
+  line-height:1.55;
+}
+
+.hero-metrics{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:10px;
+}
+.metric{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  background: #fff;
+  padding:12px;
+}
+.metric-k{ font-weight:800; font-size:18px; }
+.metric-t{ color:var(--muted); font-size:12px; margin-top:4px; }
+
+.hero-actions{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+.hero-right{ display:grid; gap:10px; }
+
+/* Gallery */
+.gallery{
+  display:grid;
+  grid-template-columns: 44px 1fr 44px;
+  gap:10px;
+  align-items:center;
+}
+.g-btn{
+  width:44px; height:44px;
+  border-radius: 14px;
+  border:1px solid var(--stroke);
+  background:#fff;
+  color:var(--text);
+  cursor:pointer;
+  font-size:22px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.g-btn:hover{ background: var(--surface2); }
+
+.g-frame{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);
+  background: var(--surface2);
+  min-height: 280px;
+}
+.g-img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+.g-overlay{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:14px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
+}
+.g-title{ font-weight:800; color:#fff; }
+.g-sub{ color: rgba(255,255,255,.80); font-size:12px; margin-top:4px; }
+
+.thumbs{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:8px;
+}
+.thumb{
+  height:58px;
+  border-radius: 14px;
+  border:1px solid rgba(0,0,0,.10);
+  background: var(--surface2);
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+}
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.thumb.active{
+  border-color: rgba(255,56,92,.55);
+  box-shadow: 0 0 0 3px rgba(255,56,92,.15);
+}
+
+/* Sections */
+.section{ margin-top:26px; }
+.section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+.h2{ margin:0; font-size:22px; letter-spacing:-.2px; }
+.h3{ margin:0 0 10px; font-size:16px; }
+.muted{ color: var(--muted); }
+
+/* Photo grid */
+.grid-photos{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap:12px;
+}
+.photo-main, .photo-tile{
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.08);
+  overflow:hidden;
+  background: var(--surface2);
+}
+.photo-main{ min-height: 320px; }
+.photo-tile{ min-height: 154px; }
+
+.photo-main img, .photo-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo-side{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:12px;
+}
+
+/* Amenity cards */
+.grid-cards{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:12px;
+}
+.mini-card{
+  border:1px solid rgba(0,0,0,.08);
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+}
+.mini-k{ font-weight:800; }
+.mini-t{ margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45; }
+
+/* Booking layout */
+.booking{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:12px;
+}
+.booking-left{ padding:16px; }
+.booking-right{ display:grid; gap:12px; }
+
+.row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.k{ font-weight:800; }
+.price{ display:flex; align-items:baseline; gap:6px; }
+.price-big{ font-weight:800; font-size:22px; }
+
+.divider{
+  height:1px;
+  background: rgba(0,0,0,.08);
+  margin:14px 0;
+}
+
+/* Calendar */
+.calendar-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+.cal-nav{ display:flex; gap:8px; align-items:center; }
+
+.calendar{
+  margin-top:12px;
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+.cal-grid{ display:grid; grid-template-columns: repeat(7, 1fr); }
+
+.cal-cell, .cal-dow{
+  padding:10px;
+  border-right:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  min-height:46px;
+}
+.cal-dow{
+  background: var(--surface2);
+  color: var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+.cal-cell{
+  position:relative;
+  cursor:pointer;
+  transition: background .12s ease, transform .06s ease;
+}
+.cal-cell:hover{ background: rgba(0,0,0,.03); }
+.cal-cell:active{ transform: scale(.99); }
+.cal-cell.disabled{
+  cursor:not-allowed;
+  opacity:.45;
+}
+.cal-num{ font-weight:800; font-size:13px; }
+.cal-tag{ margin-top:6px; font-size:11px; color: var(--muted); }
+
+.cal-cell.blocked{
+  background: rgba(255,56,92,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.20);
+}
+.cal-cell.selected{
+  background: rgba(255,56,92,.18);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.30);
+}
+.cal-cell.inrange{
+  background: rgba(255,56,92,.10);
+}
+
+/* Form */
+.form{ display:grid; gap:12px; }
+.form-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+}
+label{
+  display:grid;
+  gap:6px;
+  color: var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+input{
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.14);
+  background: #fff;
+  padding:10px 12px;
+  color: var(--text);
+  outline:none;
+}
+input:focus{
+  border-color: rgba(255,56,92,.65);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+.summary{
+  padding:12px;
+  border-radius:16px;
+}
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:8px 6px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.summary-row:last-child{ border-bottom:none; }
+
+/* Right side */
+.list{
+  margin:0;
+  padding-left:18px;
+  color: var(--muted);
+  line-height:1.6;
+}
+.legend{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.dot{
+  width:10px; height:10px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.12);
+}
+.dot.free{ background: rgba(20,184,166,.18); border-color: rgba(20,184,166,.35); }
+.dot.blocked{ background: rgba(255,56,92,.18); border-color: rgba(255,56,92,.35); }
+.dot.selected{ background: rgba(255,56,92,.28); border-color: rgba(255,56,92,.45); }
+
+.footer{
+  margin-top:28px;
+  padding:18px 0 6px;
+  border-top:1px solid rgba(0,0,0,.08);
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero{ grid-template-columns: 1fr; }
+  .grid-photos{ grid-template-columns: 1fr; }
+  .photo-side{ grid-template-columns: repeat(2, 1fr); }
+  .booking{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .nav .nav-link{ display:none; }
+  .brand{ min-width:auto; }
+  .h1{ font-size:32px; }
+  .thumbs{ grid-template-columns: repeat(4, 1fr); }
+  .form-grid{ grid-template-columns: 1fr; }
+  .grid-cards{ grid-template-columns: repeat(2, 1fr); }
+  .photo-side{ grid-template-columns: 1fr; }
+  .btn.wide{ border-radius: 14px; }
+}
+/* =========================
+   Pro polish + iPad layout
+   Pega TODO al final del archivo
+   ========================= */
+
+/* Better font rendering */
+html{
+  -webkit-text-size-adjust: 100%;
+}
+body{
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Slightly tighter, more "Airbnb" feel */
+:root{
+  --radius: 18px;
+  --shadow: 0 14px 40px rgba(0,0,0,.10);
+  --shadow2: 0 8px 22px rgba(0,0,0,.08);
+}
+
+/* Page padding tuned for iPad */
+.wrap{
+  max-width: 1140px;
+  padding: 22px 18px 64px;
+}
+
+/* Topbar: more crisp */
+.topbar{
+  padding: 12px 18px;
+  background: rgba(255,255,255,.96);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.logo{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+.brand-text{
+  font-size: 15px;
+}
+.nav-link{
+  font-size: 14px;
+}
+
+/* Buttons: more premium */
+.btn{
+  padding: 11px 16px;
+  font-weight: 700;
+  border-color: rgba(0,0,0,.14);
+}
+.btn:hover{
+  border-color: rgba(0,0,0,.18);
+}
+.btn.primary{
+  box-shadow: 0 14px 26px rgba(255,56,92,.22);
+}
+.btn.wide{
+  padding: 12px 16px;
+}
+
+/* Cards: consistent spacing */
+.card{
+  border-color: rgba(0,0,0,.10);
+}
+.hero{
+  padding: 18px;
+  gap: 14px;
+}
+.badge{
+  font-size: 12px;
+  padding: 8px 12px;
+}
+.h1{
+  font-size: 38px;
+  letter-spacing: -0.7px;
+}
+.lead{
+  font-size: 15px;
+}
+
+/* Metrics: align nicer */
+.metric{
+  border-color: rgba(0,0,0,.10);
+  border-radius: 16px;
+}
+.metric-k{ font-size: 18px; }
+.metric-t{ font-size: 12px; }
+
+/* Gallery: taller + cleaner overlay */
+.g-frame{
+  min-height: 320px;
+  border-radius: 18px;
+}
+.g-img{
+  height: 320px;
+}
+.g-overlay{
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55));
+}
+.g-title{ font-size: 14px; }
+.g-sub{ font-size: 12px; }
+
+/* Thumbs: nicer tap targets */
+.thumb{
+  height: 64px;
+  border-radius: 16px;
+}
+.g-btn{
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+}
+
+/* Sections: cleaner hierarchy */
+.section{ margin-top: 28px; }
+.h2{
+  font-size: 22px;
+  letter-spacing: -0.4px;
+}
+.h3{
+  font-size: 16px;
+  letter-spacing: -0.2px;
+}
+
+/* Amenity cards: more consistent */
+.mini-card{
+  border-radius: 18px;
+  padding: 14px 14px 15px;
+  border-color: rgba(0,0,0,.10);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+.mini-t{
+  font-size: 13px;
+}
+
+/* Booking: make the right column feel like Airbnb checkout card */
+.booking-right .card{
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Form inputs: better iPad feel */
+input{
+  height: 44px;
+  font-size: 16px; /* prevents iOS zooming */
+  border-color: rgba(0,0,0,.16);
+}
+label{
+  letter-spacing: .2px;
+}
+
+/* Calendar: bigger, cleaner, more tappable */
+.calendar{
+  border-radius: 20px;
+  border-color: rgba(0,0,0,.12);
+}
+.cal-dow{
+  font-size: 12px;
+  padding: 12px 10px;
+}
+.cal-cell{
+  min-height: 56px;
+  padding: 12px 10px;
+}
+.cal-num{
+  font-size: 14px;
+}
+.cal-tag{
+  font-size: 11px;
+}
+.cal-cell:hover{
+  background: rgba(0,0,0,.025);
+}
+
+/* Stronger "selected" cues */
+.cal-cell.selected{
+  background: rgba(255,56,92,.20);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.35);
+}
+.cal-cell.inrange{
+  background: rgba(255,56,92,.12);
+}
+.cal-cell.blocked{
+  background: rgba(255,56,92,.09);
+}
+
+/* Summary box: tighter */
+.summary{
+  border: 1px solid rgba(0,0,0,.10);
+  background: #fff;
+}
+.summary-row{
+  padding: 10px 8px;
+}
+
+/* Footer */
+.footer{
+  margin-top: 30px;
+  border-top-color: rgba(0,0,0,.10);
+}
+
+/* =========================
+   iPad Pro M4 target polish
+   ========================= */
+@media (min-width: 900px) and (max-width: 1200px){
+  .wrap{ padding-left: 20px; padding-right: 20px; }
+  .hero{ grid-template-columns: 1.05fr .95fr; }
+  .h1{ font-size: 40px; }
+  .grid-cards{ grid-template-columns: repeat(4, 1fr); }
+  .booking{ grid-template-columns: 1.05fr .95fr; }
+  .g-img{ height: 340px; }
+}
+
+/* Tablet/phone tightening */
+@media (max-width: 980px){
+  .topbar{
+    position: sticky;
+  }
+  .hero{
+    padding: 16px;
+  }
+  .g-img{ height: 300px; }
+}
+
+/* Mobile: keep it clean and not cramped */
+@media (max-width: 640px){
+  .wrap{ padding: 18px 14px 54px; }
+  .h1{ font-size: 32px; }
+  .g-frame{ min-height: 280px; }
+  .g-img{ height: 280px; }
+  .thumb{ height: 58px; }
+}
+:root{
+  /* Light Airbnb-ish theme */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f7f7f7;
+
+  --text: #111111;
+  --muted: #6a6a6a;
+
+  --stroke: rgba(0,0,0,.10);
+  --stroke2: rgba(0,0,0,.14);
+
+  /* Airbnb-like accent red */
+  --accent: #ff385c;
+  --accent2: #e61e4d;
+
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.10);
+  --shadow2: 0 6px 18px rgba(0,0,0,.08);
+
+  --focus: rgba(255,56,92,.20);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background: var(--bg);
+  overflow-x:hidden;
+}
+
+/* Kill the old dark background layer */
+.bg{ display:none; }
+
+a{ color:inherit; text-decoration:none; }
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:24px 18px 56px;
+}
+
+/* Topbar */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 18px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--stroke);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 220px;
+}
+.logo{
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  border: 1px solid var(--stroke);
+  background: #fff;
+}
+.brand-text{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.nav{ display:flex; align-items:center; gap:10px; }
+.nav-link{
+  padding:10px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+}
+.nav-link:hover{
+  color: var(--text);
+  background: var(--surface2);
+  border-color: var(--stroke);
+}
+
+/* Buttons */
+.btn{
+  border:1px solid var(--stroke2);
+  background:#fff;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius: 999px;
+  cursor:pointer;
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.btn:hover{
+  background: var(--surface2);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.btn:active{ transform: scale(.98); }
+
+.btn.primary{
+  border:none;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 10px 22px rgba(255,56,92,.20);
+}
+.btn.ghost{
+  background: transparent;
+  border-color: var(--stroke);
+  color: var(--muted);
+  box-shadow:none;
+}
+.btn.wide{ width:100%; border-radius: 12px; }
+
+/* Cards */
+.card{
+  border:1px solid var(--stroke);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+}
+.card.soft{
+  background: var(--surface2);
+  box-shadow:none;
+  border-color: rgba(0,0,0,.06);
+}
+
+/* Hero */
+.hero{
+  display:grid;
+  grid-template-columns: 1.10fr .90fr;
+  gap:16px;
+  padding:18px;
+  box-shadow: var(--shadow);
+  border-color: rgba(0,0,0,.08);
+}
+.badge{
+  display:inline-flex;
+  border:1px solid rgba(255,56,92,.22);
+  background: rgba(255,56,92,.08);
+  padding:8px 12px;
+  border-radius:999px;
+  color: #b40f2c;
+  font-size:12px;
+  font-weight:700;
+}
+
+.h1{
+  margin:12px 0 8px;
+  font-size:36px;
+  line-height:1.10;
+  letter-spacing:-.5px;
+}
+.lead{
+  margin:0;
+  color: var(--muted);
+  max-width: 62ch;
+  line-height:1.55;
+}
+
+.hero-metrics{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:10px;
+}
+.metric{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  background: #fff;
+  padding:12px;
+}
+.metric-k{ font-weight:800; font-size:18px; }
+.metric-t{ color:var(--muted); font-size:12px; margin-top:4px; }
+
+.hero-actions{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+.hero-right{ display:grid; gap:10px; }
+
+/* Gallery */
+.gallery{
+  display:grid;
+  grid-template-columns: 44px 1fr 44px;
+  gap:10px;
+  align-items:center;
+}
+.g-btn{
+  width:44px; height:44px;
+  border-radius: 14px;
+  border:1px solid var(--stroke);
+  background:#fff;
+  color:var(--text);
+  cursor:pointer;
+  font-size:22px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.g-btn:hover{ background: var(--surface2); }
+
+.g-frame{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);
+  background: var(--surface2);
+  min-height: 280px;
+}
+.g-img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+.g-overlay{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:14px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
+}
+.g-title{ font-weight:800; color:#fff; }
+.g-sub{ color: rgba(255,255,255,.80); font-size:12px; margin-top:4px; }
+
+.thumbs{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:8px;
+}
+.thumb{
+  height:58px;
+  border-radius: 14px;
+  border:1px solid rgba(0,0,0,.10);
+  background: var(--surface2);
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+}
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.thumb.active{
+  border-color: rgba(255,56,92,.55);
+  box-shadow: 0 0 0 3px rgba(255,56,92,.15);
+}
+
+/* Sections */
+.section{ margin-top:26px; }
+.section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+.h2{ margin:0; font-size:22px; letter-spacing:-.2px; }
+.h3{ margin:0 0 10px; font-size:16px; }
+.muted{ color: var(--muted); }
+
+/* Photo grid */
+.grid-photos{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap:12px;
+}
+.photo-main, .photo-tile{
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.08);
+  overflow:hidden;
+  background: var(--surface2);
+}
+.photo-main{ min-height: 320px; }
+.photo-tile{ min-height: 154px; }
+
+.photo-main img, .photo-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo-side{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:12px;
+}
+
+/* Amenity cards */
+.grid-cards{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:12px;
+}
+.mini-card{
+  border:1px solid rgba(0,0,0,.08);
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+}
+.mini-k{ font-weight:800; }
+.mini-t{ margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45; }
+
+/* Booking layout */
+.booking{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:12px;
+}
+.booking-left{ padding:16px; }
+.booking-right{ display:grid; gap:12px; }
+
+.row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.k{ font-weight:800; }
+.price{ display:flex; align-items:baseline; gap:6px; }
+.price-big{ font-weight:800; font-size:22px; }
+
+.divider{
+  height:1px;
+  background: rgba(0,0,0,.08);
+  margin:14px 0;
+}
+
+/* Calendar */
+.calendar-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+.cal-nav{ display:flex; gap:8px; align-items:center; }
+
+.calendar{
+  margin-top:12px;
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+.cal-grid{ display:grid; grid-template-columns: repeat(7, 1fr); }
+
+.cal-cell, .cal-dow{
+  padding:10px;
+  border-right:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  min-height:46px;
+}
+.cal-dow{
+  background: var(--surface2);
+  color: var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+.cal-cell{
+  position:relative;
+  cursor:pointer;
+  transition: background .12s ease, transform .06s ease;
+}
+.cal-cell:hover{ background: rgba(0,0,0,.03); }
+.cal-cell:active{ transform: scale(.99); }
+.cal-cell.disabled{
+  cursor:not-allowed;
+  opacity:.45;
+}
+.cal-num{ font-weight:800; font-size:13px; }
+.cal-tag{ margin-top:6px; font-size:11px; color: var(--muted); }
+
+.cal-cell.blocked{
+  background: rgba(255,56,92,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.20);
+}
+.cal-cell.selected{
+  background: rgba(255,56,92,.18);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.30);
+}
+.cal-cell.inrange{
+  background: rgba(255,56,92,.10);
+}
+
+/* Form */
+.form{ display:grid; gap:12px; }
+.form-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+}
+label{
+  display:grid;
+  gap:6px;
+  color: var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+input{
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.14);
+  background: #fff;
+  padding:10px 12px;
+  color: var(--text);
+  outline:none;
+}
+input:focus{
+  border-color: rgba(255,56,92,.65);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+.summary{
+  padding:12px;
+  border-radius:16px;
+}
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:8px 6px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.summary-row:last-child{ border-bottom:none; }
+
+/* Right side */
+.list{
+  margin:0;
+  padding-left:18px;
+  color: var(--muted);
+  line-height:1.6;
+}
+.legend{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.dot{
+  width:10px; height:10px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.12);
+}
+.dot.free{ background: rgba(20,184,166,.18); border-color: rgba(20,184,166,.35); }
+.dot.blocked{ background: rgba(255,56,92,.18); border-color: rgba(255,56,92,.35); }
+.dot.selected{ background: rgba(255,56,92,.28); border-color: rgba(255,56,92,.45); }
+
+.footer{
+  margin-top:28px;
+  padding:18px 0 6px;
+  border-top:1px solid rgba(0,0,0,.08);
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero{ grid-template-columns: 1fr; }
+  .grid-photos{ grid-template-columns: 1fr; }
+  .photo-side{ grid-template-columns: repeat(2, 1fr); }
+  .booking{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .nav .nav-link{ display:none; }
+  .brand{ min-width:auto; }
+  .h1{ font-size:32px; }
+  .thumbs{ grid-template-columns: repeat(4, 1fr); }
+  .form-grid{ grid-template-columns: 1fr; }
+  .grid-cards{ grid-template-columns: repeat(2, 1fr); }
+  .photo-side{ grid-template-columns: 1fr; }
+  .btn.wide{ border-radius: 14px; }
+}
+/* =========================
+   Pro polish + iPad layout
+   Pega TODO al final del archivo
+   ========================= */
+
+/* Better font rendering */
+html{
+  -webkit-text-size-adjust: 100%;
+}
+body{
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Slightly tighter, more "Airbnb" feel */
+:root{
+  --radius: 18px;
+  --shadow: 0 14px 40px rgba(0,0,0,.10);
+  --shadow2: 0 8px 22px rgba(0,0,0,.08);
+}
+
+/* Page padding tuned for iPad */
+.wrap{
+  max-width: 1140px;
+  padding: 22px 18px 64px;
+}
+
+/* Topbar: more crisp */
+.topbar{
+  padding: 12px 18px;
+  background: rgba(255,255,255,.96);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.logo{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+.brand-text{
+  font-size: 15px;
+}
+.nav-link{
+  font-size: 14px;
+}
+
+/* Buttons: more premium */
+.btn{
+  padding: 11px 16px;
+  font-weight: 700;
+  border-color: rgba(0,0,0,.14);
+}
+.btn:hover{
+  border-color: rgba(0,0,0,.18);
+}
+.btn.primary{
+  box-shadow: 0 14px 26px rgba(255,56,92,.22);
+}
+.btn.wide{
+  padding: 12px 16px;
+}
+
+/* Cards: consistent spacing */
+.card{
+  border-color: rgba(0,0,0,.10);
+}
+.hero{
+  padding: 18px;
+  gap: 14px;
+}
+.badge{
+  font-size: 12px;
+  padding: 8px 12px;
+}
+.h1{
+  font-size: 38px;
+  letter-spacing: -0.7px;
+}
+.lead{
+  font-size: 15px;
+}
+
+/* Metrics: align nicer */
+.metric{
+  border-color: rgba(0,0,0,.10);
+  border-radius: 16px;
+}
+.metric-k{ font-size: 18px; }
+.metric-t{ font-size: 12px; }
+
+/* Gallery: taller + cleaner overlay */
+.g-frame{
+  min-height: 320px;
+  border-radius: 18px;
+}
+.g-img{
+  height: 320px;
+}
+.g-overlay{
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55));
+}
+.g-title{ font-size: 14px; }
+.g-sub{ font-size: 12px; }
+
+/* Thumbs: nicer tap targets */
+.thumb{
+  height: 64px;
+  border-radius: 16px;
+}
+.g-btn{
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+}
+
+/* Sections: cleaner hierarchy */
+.section{ margin-top: 28px; }
+.h2{
+  font-size: 22px;
+  letter-spacing: -0.4px;
+}
+.h3{
+  font-size: 16px;
+  letter-spacing: -0.2px;
+}
+
+/* Amenity cards: more consistent */
+.mini-card{
+  border-radius: 18px;
+  padding: 14px 14px 15px;
+  border-color: rgba(0,0,0,.10);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+.mini-t{
+  font-size: 13px;
+}
+
+/* Booking: make the right column feel like Airbnb checkout card */
+.booking-right .card{
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Form inputs: better iPad feel */
+input{
+  height: 44px;
+  font-size: 16px; /* prevents iOS zooming */
+  border-color: rgba(0,0,0,.16);
+}
+label{
+  letter-spacing: .2px;
+}
+
+/* Calendar: bigger, cleaner, more tappable */
+.calendar{
+  border-radius: 20px;
+  border-color: rgba(0,0,0,.12);
+}
+.cal-dow{
+  font-size: 12px;
+  padding: 12px 10px;
+}
+.cal-cell{
+  min-height: 56px;
+  padding: 12px 10px;
+}
+.cal-num{
+  font-size: 14px;
+}
+.cal-tag{
+  font-size: 11px;
+}
+.cal-cell:hover{
+  background: rgba(0,0,0,.025);
+}
+
+/* Stronger "selected" cues */
+.cal-cell.selected{
+  background: rgba(255,56,92,.20);
+  box-shadow: inset 0 0 0 1px rgba(255,56,92,.35);
+}
+.cal-cell.inrange{
+  background: rgba(255,56,92,.12);
+}
+.cal-cell.blocked{
+  background: rgba(255,56,92,.09);
+}
+
+/* Summary box: tighter */
+.summary{
+  border: 1px solid rgba(0,0,0,.10);
+  background: #fff;
+}
+.summary-row{
+  padding: 10px 8px;
+}
+
+/* Footer */
+.footer{
+  margin-top: 30px;
+  border-top-color: rgba(0,0,0,.10);
+}
+
+/* =========================
+   iPad Pro M4 target polish
+   ========================= */
+@media (min-width: 900px) and (max-width: 1200px){
+  .wrap{ padding-left: 20px; padding-right: 20px; }
+  .hero{ grid-template-columns: 1.05fr .95fr; }
+  .h1{ font-size: 40px; }
+  .grid-cards{ grid-template-columns: repeat(4, 1fr); }
+  .booking{ grid-template-columns: 1.05fr .95fr; }
+  .g-img{ height: 340px; }
+}
+
+/* Tablet/phone tightening */
+@media (max-width: 980px){
+  .topbar{
+    position: sticky;
+  }
+  .hero{
+    padding: 16px;
+  }
+  .g-img{ height: 300px; }
+}
+
+/* Mobile: keep it clean and not cramped */
+@media (max-width: 640px){
+  .wrap{ padding: 18px 14px 54px; }
+  .h1{ font-size: 32px; }
+  .g-frame{ min-height: 280px; }
+  .g-img{ height: 280px; }
+  .thumb{ height: 58px; }
+}
+/* =========================
+   Fix iPhone: no side-scroll + calendar scale
+   Pega al final
+   ========================= */
+
+/* 1) Mata el scroll horizontal por overflow */
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Cualquier grid/flex que se estire, que pueda encoger */
+.wrap, .hero, .booking, .gallery, .grid-photos, .grid-cards{
+  min-width: 0;
+}
+
+/* Evita que imágenes/frames se salgan del viewport */
+img, .g-frame, .photo-main, .photo-tile, .calendar{
+  max-width: 100%;
+}
+
+/* 2) Ajuste móvil: el calendario estaba demasiado grande */
+@media (max-width: 520px){
+  .wrap{ padding-left: 12px; padding-right: 12px; }
+
+  /* Galería un poco más baja para balance */
+  .g-frame{ min-height: 240px; }
+  .g-img{ height: 240px; }
+
+  /* Calendario más compacto */
+  .calendar{ border-radius: 16px; }
+  .cal-dow{
+    padding: 10px 8px;
+    font-size: 11px;
+  }
+  .cal-cell{
+    padding: 9px 8px;
+    min-height: 46px;
+  }
+  .cal-num{ font-size: 13px; }
+  .cal-tag{ font-size: 10px; }
+
+  /* Si el label "No disponible" fuerza ancho, que no rompa layout */
+  .cal-tag{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Asegura que el grid no cause overflow por bordes */
+  .cal-grid{ width: 100%; }
+  .cal-cell, .cal-dow{ border-right-width: 0; }
+}
+
+/* 3) Extra: si algún elemento aún empuja el ancho, corta suavemente */
+body *{
+  max-width: 100%;
+}
+/* =========================
+   Fix: calendario NO se recorta en móvil
+   Pega al final
+   ========================= */
+
+@media (max-width: 520px){
+  /* Permite que el grid de 7 columnas se encoja correctamente */
+  .cal-grid{
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    width: 100%;
+  }
+  .cal-cell, .cal-dow{
+    min-width: 0;          /* CLAVE: permite encoger */
+    padding: 8px 6px;      /* un poco más compacto */
+  }
+
+  /* Evita que el texto empuje el ancho */
+  .cal-num{ font-size: 12px; }
+  .cal-tag{
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Plan B: si algo no cabe, que el calendario scrollee SOLO por dentro */
+  .calendar{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
