@@ -1509,6 +1509,10 @@ body *{
   text-align: left;
   transition: transform .08s ease, background .08s ease, border-color .08s ease;
 }
+.unit-btn.selected{
+  border-color:#ff385c;
+  background:rgba(255,56,92,0.15);
+}
 
 .unit-btn:hover{ transform: translateY(-1px); }
 
