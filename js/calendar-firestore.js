@@ -4,14 +4,13 @@ import { collection, getDocs, query, where } from "https://www.gstatic.com/fireb
 export async function loadBlockedDates(unitIds = []) {
   const blocked = new Set();
 
-  // 1) Siempre incluye los docs viejos (sin unitId) para que NO se “desbloquee”
+  // incluir docs viejos sin unitId (para que NO se "desbloquee" todo)
   const globalSnap = await getDocs(query(collection(db, "CALENDAR"), where("unitId", "==", null)));
   globalSnap.forEach((doc) => {
     const data = doc.data();
     if (data && typeof data.date === "string") blocked.add(data.date);
   });
 
-  // 2) Si no hay unidades seleccionadas, comportamiento viejo: todo
   const ids = Array.isArray(unitIds)
     ? unitIds.map(s => String(s || "").toLowerCase()).filter(Boolean)
     : [];
@@ -25,14 +24,12 @@ export async function loadBlockedDates(unitIds = []) {
     return blocked;
   }
 
-  // 3) Trae bloqueos por unidad
-  const q = query(collection(db, "CALENDAR"), where("unitId", "in", ids));
-  const snap = await getDocs(q);
-
+  const snap = await getDocs(query(collection(db, "CALENDAR"), where("unitId", "in", ids)));
   snap.forEach((doc) => {
     const data = doc.data();
     if (data && typeof data.date === "string") blocked.add(data.date);
   });
 
   return blocked;
+}  return blocked;
 }
