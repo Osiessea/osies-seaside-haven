@@ -87,11 +87,77 @@ console.log("✅ app.js cargó");
 
   function pad2(n){ return String(n).padStart(2, "0"); }
   function ymd(d){ return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`; }
+  
   function addDays(date, days){
     const d = new Date(date);
     d.setDate(d.getDate() + days);
     return d;
   }
+
+ 
+
+function renderUnits(units){
+  const host = document.getElementById("unitsMap");
+  if (!host) return;
+
+  host.innerHTML = "";
+
+  const pool = document.createElement("div");
+  pool.className = "units-pool";
+  pool.innerHTML = `<div><div class="k">Piscina</div><div class="muted">Área común</div></div>`;
+  host.appendChild(pool);
+
+  const order = ["a1","b1","a2","b2"];
+
+  for (const id of order){
+    const u = units.find(x => x.id === id);
+    if (!u) continue;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "unit-btn";
+    btn.dataset.unitId = u.id;
+
+    if (id === "a1"){ btn.style.gridColumn="1"; btn.style.gridRow="1"; }
+    if (id === "b1"){ btn.style.gridColumn="3"; btn.style.gridRow="1"; }
+    if (id === "a2"){ btn.style.gridColumn="1"; btn.style.gridRow="2"; }
+    if (id === "b2"){ btn.style.gridColumn="3"; btn.style.gridRow="2"; }
+
+    btn.innerHTML = `
+      <div class="unit-top">
+        <div class="unit-code">${(u.code || u.id).toUpperCase()}</div>
+        <div class="muted">Seleccionar</div>
+      </div>
+      <div class="unit-name">${u.name || "Unidad"}</div>
+      <div class="unit-price muted">Base: ${formatMoney(u.price || CONFIG.pricePerNight)}/noche</div>
+    `;
+
+    btn.addEventListener("click", () => {
+      if (selectedUnits.has(u.id)) selectedUnits.delete(u.id);
+      else selectedUnits.add(u.id);
+
+      btn.classList.toggle("is-selected", selectedUnits.has(u.id));
+
+      const el = document.getElementById("unitsSelected");
+      if (el) el.textContent = `${selectedUnits.size} seleccionada${selectedUnits.size===1?"":"s"}`;
+
+      updateSummary();
+    });
+
+    host.appendChild(btn);
+  }
+}
+
+async function hydrateUnits(){
+  ALL_UNITS = await loadUnits();
+
+  if (selectedUnits.size === 0){
+    const firstActive = ALL_UNITS.find(u => u.active !== false);
+    if (firstActive) selectedUnits.add(firstActive.id);
+  }
+
+  renderUnits(ALL_UNITS);
+}
   function diffDays(a, b){
     const ms = (b.getTime() - a.getTime());
     return Math.round(ms / (1000*60*60*24));
