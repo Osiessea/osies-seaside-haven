@@ -56,12 +56,7 @@ console.log("✅ app.js cargó");
       makePlaceholder("Terraza • View")
     ],
     blockedDates: new Set([
-      "2026-03-06",
-      "2026-03-07",
-      "2026-03-14",
-      "2026-03-15",
-      "2026-03-22",
-      "2026-03-27"
+    
     ])
   };
 
