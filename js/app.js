@@ -264,8 +264,8 @@ async function hydrateUnits(){
     if (checkIn && checkOut){
       const nights = diffDays(checkIn, checkOut);
       $("sNights").textContent = String(nights);
-      $("sTotal").textContent = `$${(nights * CONFIG.pricePerNight).toFixed(0)}`;
-      $("calMeta").textContent = `${nights} noches • $${CONFIG.pricePerNight}/noche`;
+$("sTotal").textContent = `$${(nights * getSelectedNightly()).toFixed(0)}`;
+$("calMeta").textContent = `${nights} noches • $${getSelectedNightly()}/noche`;
     } else {
       $("sNights").textContent = "—";
       $("sTotal").textContent = "—";
