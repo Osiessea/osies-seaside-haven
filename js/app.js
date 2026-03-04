@@ -439,7 +439,35 @@ msg.textContent = `❌ No se pudo reservar: ${err?.message || "fechas no disponi
 }
     });
   }
+function wireUnits(){
 
+  const buttons = document.querySelectorAll(".unit-btn");
+
+  buttons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const id = btn.dataset.unit;
+
+      if(selectedUnits.has(id)){
+        selectedUnits.delete(id);
+        btn.classList.remove("selected");
+      }else{
+        selectedUnits.add(id);
+        btn.classList.add("selected");
+      }
+
+      const counter = document.getElementById("unitsSelected");
+
+      if(counter){
+        counter.textContent = selectedUnits.size + " seleccionadas";
+      }
+
+    });
+
+  });
+
+}
   // ====== UI helpers ======
   function wireTopCTA(){
     const b = $("btnPrimary");
@@ -476,6 +504,7 @@ msg.textContent = `❌ No se pudo reservar: ${err?.message || "fechas no disponi
     await hydrateAvailability();
 
     wireTopCTA();
+    wireUnits();
     wireGallery();
     wireCalendarNav();
     wireBooking();
