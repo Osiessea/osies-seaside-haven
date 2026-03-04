@@ -6,10 +6,17 @@ function datesBetween(startYMD, endYMD) {
   const [ey, em, ed] = endYMD.split("-").map(Number);
   const start = new Date(sy, sm - 1, sd);
   const end = new Date(ey, em - 1, ed);
+
+  // noches = días entre check-in (incluido) y check-out (excluido)
   const nights = Math.round((end - start) / (1000 * 60 * 60 * 24));
 
+  // ✅ buffer de limpieza: bloquea también el día de checkout
+  const turnoverDays = 1;
+
   const out = [];
-  for (let i = 0; i < nights; i++) {
+  const totalDaysToBlock = nights + turnoverDays;
+
+  for (let i = 0; i < totalDaysToBlock; i++) {
     const d = new Date(start);
     d.setDate(d.getDate() + i);
     const y = d.getFullYear();
@@ -17,6 +24,7 @@ function datesBetween(startYMD, endYMD) {
     const day = String(d.getDate()).padStart(2, "0");
     out.push(`${y}-${m}-${day}`);
   }
+
   return out;
 }
 
