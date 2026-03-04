@@ -31,5 +31,4 @@ export async function loadBlockedDates(unitIds = []) {
   });
 
   return blocked;
-}  return blocked;
 }
