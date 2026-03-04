@@ -55,9 +55,7 @@ console.log("✅ app.js cargó");
       "./assets/05-bano.jpg",
       makePlaceholder("Terraza • View")
     ],
-    blockedDates: new Set([
-    
-    ])
+    blockedDates: new Set()
   };
 
   // ====== DOM helpers ======
