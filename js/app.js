@@ -66,21 +66,27 @@ console.log("✅ app.js cargó");
     return `$${v.toFixed(0)}`;
   }
 
-  function getSelectedNightly(){
-    let sum = 0;
-    let counted = 0;
+function getSelectedNightly(){
 
-    for (const id of selectedUnits){
-      const u = ALL_UNITS.find(x => x.id === id);
-      if (u && Number.isFinite(Number(u.price))){
-        sum += Number(u.price);
-        counted++;
-      }
+  let sum = 0;
+
+  selectedUnits.forEach(id => {
+
+    const btn = document.querySelector(`.unit-btn[data-unit="${id}"]`);
+
+    if(btn){
+      const price = Number(btn.dataset.price || 165);
+      sum += price;
     }
 
-    if (counted === 0) return CONFIG.pricePerNight;
-    return sum;
+  });
+
+  if(sum === 0){
+    return CONFIG.pricePerNight;
   }
+
+  return sum;
+}
   // ====== DOM helpers ======
   const $ = (id) => document.getElementById(id);
 
