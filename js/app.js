@@ -58,7 +58,30 @@ console.log("✅ app.js cargó");
     ],
     blockedDates: new Set()
   };
+  // ====== Units selection state ======
+  let ALL_UNITS = [];
+  const selectedUnits = new Set(); // ids: "a1","a2","b1","b2"
 
+  function formatMoney(n){
+    const v = Number(n || 0);
+    return `$${v.toFixed(0)}`;
+  }
+
+  function getSelectedNightly(){
+    let sum = 0;
+    let counted = 0;
+
+    for (const id of selectedUnits){
+      const u = ALL_UNITS.find(x => x.id === id);
+      if (u && Number.isFinite(Number(u.price))){
+        sum += Number(u.price);
+        counted++;
+      }
+    }
+
+    if (counted === 0) return CONFIG.pricePerNight;
+    return sum;
+  }
   // ====== DOM helpers ======
   const $ = (id) => document.getElementById(id);
 
