@@ -425,7 +425,8 @@ $("calMeta").textContent = mname;  }
         checkin: ymd(checkIn),
         checkout: ymd(checkOut),
         nights,
-        total: nights * CONFIG.pricePerNight
+        units: [...selectedUnits],
+total: nights * getSelectedNightly()
       };
 
       try {
