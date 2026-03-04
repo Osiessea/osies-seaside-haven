@@ -1,19 +1,19 @@
-// Import Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Configuración de Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBZuQO4UHJLiz_SjVbC-E4FLkmgfkIGrJ4",
-  authDomain: "mi-casita-demo.firebaseapp.com",
-  projectId: "mi-casita-demo",
-  storageBucket: "mi-casita-demo.firebasestorage.app",
-  messagingSenderId: "464398345719",
-  appId: "1:464398345719:web:91f49e92383cae6dfa3af2"
-};
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAgkI6wmH6sitqXMhmQ5bxcJYKRCGqhkms",
+    authDomain: "osies-seaside-haven.firebaseapp.com",
+    projectId: "osies-seaside-haven",
+    storageBucket: "osies-seaside-haven.firebasestorage.app",
+    messagingSenderId: "516451768058",
+    appId: "1:516451768058:web:8fc363ca39427cbe6c5b43"
+  };
 
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export { db };
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
