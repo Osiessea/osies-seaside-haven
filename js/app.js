@@ -470,6 +470,10 @@ function wireUnits(){
         counter.textContent = selectedUnits.size + " seleccionadas";
       }
         updateSummary();
+      loadBlockedDates([...selectedUnits]).then((set) => {
+  CONFIG.blockedDates = set;
+  renderCalendar();
+}).catch(console.error);
 
 
     });
@@ -500,7 +504,7 @@ function wireUnits(){
   async function init(){
     async function hydrateAvailability(){
       try {
-        const set = await loadBlockedDates();
+const set = await loadBlockedDates([...selectedUnits]);
         if (set instanceof Set && set.size) {
           CONFIG.blockedDates = set;
         }
