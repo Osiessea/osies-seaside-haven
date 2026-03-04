@@ -2,7 +2,6 @@ import { loadBlockedDates } from "./calendar-firestore.js";
 import { createBooking } from "./bookings-firestore.js";
 import { blockDates } from "./calendar-write-firestore.js";
 import { holdDatesIfFree } from "./calendar-transaction-firestore.js";
-import { loadUnits } from "./units-firestore.js";
 
 console.log("✅ app.js cargó");
 
