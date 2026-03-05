@@ -476,6 +476,13 @@ function wireUnits(){
     btn.addEventListener("click", () => {
 
       const id = btn.dataset.unit;
+      if (CONFIG.disabledUnits?.has(id)) {
+  btn.disabled = true;
+  btn.classList.add("unit-disabled");
+  selectedUnits.delete(id);
+  updateSummary();
+  return;
+}
 
       if(selectedUnits.has(id)){
         selectedUnits.delete(id);
