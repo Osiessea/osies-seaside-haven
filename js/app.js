@@ -56,6 +56,7 @@ console.log("✅ app.js cargó");
       makePlaceholder("Terraza • View")
     ],
     blockedDates: new Set()
+    ,disabledUnits: new Set(["b1","b2"])
   };
   // ====== Units selection state ======
   let ALL_UNITS = [];
