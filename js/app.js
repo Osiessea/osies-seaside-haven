@@ -121,7 +121,7 @@ function renderUnits(units){
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "unit-btn";
-    btn.dataset.unitId = u.id;
+btn.dataset.unit = u.id;
     if (u.active === false) {
   btn.disabled = true;
   btn.classList.add("unit-disabled");
