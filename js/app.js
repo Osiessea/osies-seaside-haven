@@ -430,19 +430,30 @@ total: nights * getSelectedNightly()
       };
 
       try {
-  const bookingId = await createBooking(payload);
+ // crear reserva pendiente
+const bookingId = await createBooking({ ...payload, status: "pending_payment" });
 
-  // ✅ bloquea noches (ATÓMICO: si alguna existe, falla)
-await holdDatesIfFree(payload.checkin, payload.checkout, bookingId, payload.units);
-        
-  // ✅ refresca disponibilidad y repinta
-  CONFIG.blockedDates = await loadBlockedDates();
-  renderCalendar();
+// pedir link de Stripe al Worker
+const r = await fetch("https://young-shape-c1a7.osiesseasidehaven.workers.dev/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    bookingId,
+    total: payload.total,
+    nights: payload.nights,
+    units: payload.units
+  })
+});
 
-  msg.textContent = `✅ Reserva guardada y fechas bloqueadas: ${bookingId} • ${payload.checkin} → ${payload.checkout} • $${payload.total.toFixed(0)}.`;
-} catch (err) {
-  console.error(err);
-msg.textContent = `❌ No se pudo reservar: ${err?.message || "fechas no disponibles"}.`;
+const j = await r.json();
+
+if (!r.ok || !j.url) {
+  throw new Error("No se pudo crear el pago");
+}
+
+// redirigir a Stripe
+window.location.href = j.url;
+return;
 }
     });
   }
