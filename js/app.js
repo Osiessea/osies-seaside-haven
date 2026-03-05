@@ -471,9 +471,16 @@ function wireUnits(){
 
   const buttons = document.querySelectorAll(".unit-btn");
 
-  buttons.forEach(btn => {
+buttons.forEach(btn => {
 
-    btn.addEventListener("click", () => {
+  const id = btn.dataset.unit;
+
+  if (CONFIG.disabledUnits.has(id)) {
+    btn.disabled = true;
+    btn.classList.add("unit-disabled");
+  }
+
+  btn.addEventListener("click", () => {
 
       const id = btn.dataset.unit;
       if (CONFIG.disabledUnits?.has(id)) {
