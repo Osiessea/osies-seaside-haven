@@ -516,6 +516,20 @@ const set = await loadBlockedDates([...selectedUnits]);
 
     await hydrateAvailability();
 
+    // mostrar resultado de Stripe
+const qp = new URLSearchParams(location.search);
+const paid = qp.get("paid");
+const bookingId = qp.get("bookingId");
+const msgEl = document.getElementById("msg");
+
+if (msgEl && paid === "1") {
+  msgEl.textContent = `Pago exitoso. Reserva: ${bookingId || "—"}`;
+}
+
+if (msgEl && paid === "0") {
+  msgEl.textContent = `Pago cancelado. Reserva: ${bookingId || "—"}`;
+}
+
     wireTopCTA();
     wireUnits();
     wireGallery();
