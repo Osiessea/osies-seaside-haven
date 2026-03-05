@@ -122,6 +122,10 @@ function renderUnits(units){
     btn.type = "button";
     btn.className = "unit-btn";
     btn.dataset.unitId = u.id;
+    if (u.active === false) {
+  btn.disabled = true;
+  btn.classList.add("unit-disabled");
+}
 
     if (id === "a1"){ btn.style.gridColumn="1"; btn.style.gridRow="1"; }
     if (id === "b1"){ btn.style.gridColumn="3"; btn.style.gridRow="1"; }
