@@ -392,14 +392,15 @@ $("calMeta").textContent = mname;  }
 
   // ====== Booking (save to Firestore) ======
   function wireBooking(){
-    const form = $("bookingForm");
-    if (!form) return;
+  const form = $("bookingForm");
+  if (!form) return;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = $("msg");
-      msg.textContent = "";
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msg = $("msg");
+    if (msg) msg.textContent = "";
 
+    try {
       if (!checkIn || !checkOut){
         toast("Selecciona check-in y check-out.");
         return;
@@ -426,37 +427,41 @@ $("calMeta").textContent = mname;  }
         checkout: ymd(checkOut),
         nights,
         units: [...selectedUnits],
-total: nights * getSelectedNightly()
+        total: nights * getSelectedNightly()
       };
 
-      try {
- // crear reserva pendiente
-const bookingId = await createBooking({ ...payload, status: "pending_payment" });
+      // 1) crear reserva pendiente
+      const bookingId = await createBooking({ ...payload, status: "pending_payment" });
 
-// pedir link de Stripe al Worker
-const r = await fetch("https://young-shape-c1a7.osiesseasidehaven.workers.dev/", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    bookingId,
-    total: payload.total,
-    nights: payload.nights,
-    units: payload.units
-  })
-});
+      if (msg) msg.textContent = "Creando pago en Stripe…";
 
-const j = await r.json();
+      // 2) pedir link al Worker
+      const r = await fetch("https://young-shape-c1a7.osiesseasidehaven.workers.dev/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingId,
+          total: payload.total,
+          nights: payload.nights,
+          units: payload.units
+        })
+      });
 
-if (!r.ok || !j.url) {
-  throw new Error("No se pudo crear el pago");
+      const j = await r.json().catch(() => ({}));
+
+      if (!r.ok || !j?.url){
+        if (msg) msg.textContent = `❌ Worker/Stripe: ${JSON.stringify(j)}`;
+        return;
+      }
+
+      if (msg) msg.textContent = "Redirigiendo a Stripe…";
+      window.location.assign(j.url);
+    } catch (err) {
+      console.error(err);
+      if (msg) msg.textContent = `❌ Error: ${err?.message || "No se pudo crear el pago"}`;
+    }
+  });
 }
-
-// redirigir a Stripe
-window.location.href = j.url;
-return;
-}
-    });
-  }
 function wireUnits(){
 
   const buttons = document.querySelectorAll(".unit-btn");
