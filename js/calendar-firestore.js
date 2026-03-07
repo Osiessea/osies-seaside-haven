@@ -15,13 +15,8 @@ export async function loadBlockedDates(unitIds = []) {
     ? unitIds.map(s => String(s || "").toLowerCase()).filter(Boolean)
     : [];
 
-  if (ids.length === 0) {
-    const snap = await getDocs(collection(db, "CALENDAR"));
-    snap.forEach((doc) => {
-      const data = doc.data();
-      if (data && typeof data.date === "string") blocked.add(data.date);
-    });
-    return blocked;
+if (ids.length === 0) {
+  return blocked;
   }
 
   const snap = await getDocs(query(collection(db, "CALENDAR"), where("unitId", "in", ids)));
