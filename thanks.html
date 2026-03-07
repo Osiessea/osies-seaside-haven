@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserva confirmada</title>
+
+<style>
+body{
+  font-family: system-ui, -apple-system, Arial;
+  background:#f7f7f7;
+  margin:0;
+  padding:40px;
+  display:flex;
+  justify-content:center;
+}
+
+.card{
+  background:white;
+  padding:40px;
+  border-radius:12px;
+  max-width:520px;
+  width:100%;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  text-align:center;
+}
+
+h1{
+  margin-top:0;
+}
+
+.confirm{
+  font-size:22px;
+  margin:20px 0;
+  font-weight:600;
+}
+
+.muted{
+  color:#666;
+}
+
+.btn{
+  margin-top:30px;
+  display:inline-block;
+  padding:12px 20px;
+  background:#ff385c;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Reserva confirmada</h1>
+
+<p>Gracias por tu reserva en <strong>Osies Seaside Haven</strong>.</p>
+
+<div class="confirm">
+Número de confirmación:<br>
+<span id="bookingId">...</span>
+</div>
+
+<p class="muted">
+Hemos enviado un correo electrónico con los detalles de tu reserva.
+</p>
+
+<a href="./index.html" class="btn">
+Volver al inicio
+</a>
+
+</div>
+
+<script>
+const qp = new URLSearchParams(location.search);
+const bookingId = qp.get("bookingId");
+
+if(bookingId){
+  document.getElementById("bookingId").textContent = bookingId;
+}
+</script>
+
+</body>
+</html>
