@@ -75,11 +75,36 @@ Volver al inicio
 </div>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-const qp = new URLSearchParams(location.search);
-const bookingId = qp.get("bookingId");
+emailjs.init("iXH3RHsJay5DQk-Zv");
 
-if(bookingId){
-  document.getElementById("bookingId").textContent = bookingId;
+const qp = new URLSearchParams(location.search);
+
+const booking_id = qp.get("bookingId");
+const name = qp.get("name");
+const email = qp.get("email");
+const checkin = qp.get("checkin");
+const checkout = qp.get("checkout");
+const units = qp.get("units");
+const total = qp.get("total");
+
+if(booking_id){
+  document.getElementById("bookingId").textContent = booking_id;
+}
+
+if(email){
+  emailjs.send(
+    "service_ryvy50t",
+    "template_fbw6s3s",
+    {
+      booking_id,
+      name,
+      email,
+      checkin,
+      checkout,
+      units,
+      total
+    }
+  );
 }
 </script>
 
