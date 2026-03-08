@@ -65,8 +65,8 @@ function renderRow(row) {
   const safeUnits = escapeHtml(units);
   const safeTotal = escapeHtml(total);
 
-  return `
-    <tr>
+return `
+  <tr>
       <td>${safeId}</td>
       <td>${safeName}</td>
       <td>${safeEmail}</td>
@@ -77,8 +77,13 @@ function renderRow(row) {
       <td>${safeUnits}</td>
       <td>${safeTotal}</td>
       <td><span class="status-badge ${safeStatus}">${safeStatus}</span></td>
-    </tr>
-  `;
+      <td>
+        <button class="cancel-btn" data-id="${safeId}">
+          Cancelar
+        </button>
+      </td>
+  </tr>
+`;
 }
 
 function showLoading() {
