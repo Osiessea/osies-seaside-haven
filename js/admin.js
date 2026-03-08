@@ -22,13 +22,13 @@ async function init() {
     const q = query(bookingsRef, orderBy("checkin", "desc"));
     const snap = await getDocs(q);
 
-   const rows = snap.docs
+  const rows = snap.docs
   .map(doc => ({
     id: doc.id,
     ...doc.data()
   }))
-  .filter(row => row.status === "confirmed");
-
+  .filter(row => row.status === "confirmed")
+  .sort((a, b) => new Date(b.checkin) - new Date(a.checkin));
     
     if (!rows.length) {
       showEmpty();
