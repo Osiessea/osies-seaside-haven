@@ -118,3 +118,83 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+let currentMonth = new Date();
+
+const calEl = document.getElementById("adminCalendar");
+const calTitle = document.getElementById("calTitle");
+const calPrev = document.getElementById("calPrev");
+const calNext = document.getElementById("calNext");
+
+if (calPrev) calPrev.onclick = () => changeMonth(-1);
+if (calNext) calNext.onclick = () => changeMonth(1);
+
+async function loadCalendar() {
+
+  const snap = await getDocs(collection(db, "CALENDAR"));
+
+  const blocks = snap.docs.map(d => d.data());
+
+  renderCalendar(blocks);
+}
+
+function changeMonth(delta) {
+  currentMonth.setMonth(currentMonth.getMonth() + delta);
+  loadCalendar();
+}
+
+function renderCalendar(blocks) {
+
+  const y = currentMonth.getFullYear();
+  const m = currentMonth.getMonth();
+
+  const first = new Date(y, m, 1);
+  const startDay = first.getDay();
+
+  const last = new Date(y, m + 1, 0);
+  const totalDays = last.getDate();
+
+  const monthName = first.toLocaleString("default", { month: "long" });
+
+  calTitle.textContent = `${monthName} ${y}`;
+
+  let html = `<div class="cal-grid">`;
+
+  const names = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  names.forEach(n => html += `<div class="cal-dayname">${n}</div>`);
+
+  for (let i = 0; i < startDay; i++) {
+    html += `<div class="cal-cell muted"></div>`;
+  }
+
+  for (let d = 1; d <= totalDays; d++) {
+
+    const date = new Date(y, m, d);
+    const ymd = date.toISOString().slice(0,10);
+
+    const dayBlocks = blocks.filter(b => b.date === ymd);
+
+    let tags = "";
+
+    dayBlocks.forEach(b => {
+      tags += `<span class="cal-tag">${b.unitId.toUpperCase()}</span>`;
+    });
+
+    html += `
+      <div class="cal-cell">
+        <div class="cal-date">${d}</div>
+        <div class="cal-tags">${tags}</div>
+      </div>
+    `;
+  }
+
+  html += `</div>`;
+
+  calEl.innerHTML = html;
+}
+
+loadCalendar();
