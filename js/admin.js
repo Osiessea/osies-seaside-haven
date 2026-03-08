@@ -118,10 +118,7 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
 
 let currentMonth = new Date();
 
