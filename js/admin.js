@@ -22,10 +22,11 @@ async function init() {
     const q = query(bookingsRef, orderBy("checkin", "desc"));
     const snap = await getDocs(q);
 
-    const rows = snap.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+   const rows = snap.docs
+  .map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }))
   .filter(row => row.status === "confirmed");
 
     
