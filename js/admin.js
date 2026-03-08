@@ -26,7 +26,9 @@ async function init() {
       id: doc.id,
       ...doc.data()
     }));
+  .filter(row => row.status === "confirmed");
 
+    
     if (!rows.length) {
       showEmpty();
       return;
