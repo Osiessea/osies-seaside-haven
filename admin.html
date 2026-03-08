@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin | Osies Seaside Haven</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <style>
+    body {
+      background: #f7f7f7;
+    }
+
+    .admin-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+
+    .admin-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+      overflow: hidden;
+    }
+
+    .admin-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .admin-head h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .admin-head p {
+      margin: 6px 0 0;
+      color: #6b7280;
+      font-size: .95rem;
+    }
+
+    .admin-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eef0f3;
+      vertical-align: top;
+      font-size: .95rem;
+    }
+
+    .admin-table th {
+      background: #fafafa;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .admin-table td {
+      color: #374151;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 700;
+      background: #ecfdf3;
+      color: #067647;
+      border: 1px solid #abefc6;
+    }
+
+    .status-badge.pending_payment {
+      background: #fffaeb;
+      color: #b54708;
+      border-color: #fedf89;
+    }
+
+    .admin-empty,
+    .admin-loading,
+    .admin-error {
+      padding: 24px;
+      font-size: .98rem;
+    }
+
+    .admin-error {
+      color: #b42318;
+    }
+
+    @media (max-width: 640px) {
+      .admin-wrap {
+        padding-top: 18px;
+      }
+
+      .admin-head h1 {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="admin-wrap">
+    <section class="admin-card">
+      <div class="admin-head">
+        <div>
+          <h1>Panel Admin</h1>
+          <p>Reservas de Osies Seaside Haven</p>
+        </div>
+      </div>
+
+      <div id="adminLoading" class="admin-loading">Cargando reservas...</div>
+      <div id="adminError" class="admin-error" hidden></div>
+      <div id="adminEmpty" class="admin-empty" hidden>No hay reservas todavía.</div>
+
+      <div id="adminTableWrap" class="admin-table-wrap" hidden>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Confirmación</th>
+              <th>Cliente</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Noches</th>
+              <th>Unidad</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/admin.js"></script>
+</body>
+</html>
