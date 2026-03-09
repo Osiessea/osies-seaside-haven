@@ -5,7 +5,9 @@ import {
   query,
   orderBy,
   doc,
-  updateDoc
+  updateDoc,
+  where,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const loadingEl = document.getElementById("adminLoading");
