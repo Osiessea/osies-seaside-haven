@@ -75,25 +75,33 @@ function bindCancelButtons() {
   });
 }
 async function cancelBooking(bookingId) {
-  const bookingRef = doc(db, "BOOKINGS", bookingId);
+  try {
+    const bookingRef = doc(db, "BOOKINGS", bookingId);
 
-  // 1) marcar reserva como cancelada
-  await updateDoc(bookingRef, {
-    status: "cancelled",
-    cancelledAt: new Date().toISOString(),
-    cancelledBy: "admin"
-  });
+    await updateDoc(bookingRef, {
+      status: "cancelled",
+      cancelledAt: new Date().toISOString(),
+      cancelledBy: "admin"
+    });
 
-  // 2) borrar bloqueos del calendario ligados a esa reserva
-  const calRef = collection(db, "CALENDAR");
-  const q = query(calRef, where("bookingId", "==", bookingId));
-  const snap = await getDocs(q);
+    const calRef = collection(db, "CALENDAR");
+    const q = query(calRef, where("bookingId", "==", bookingId));
+    const snap = await getDocs(q);
 
-  for (const d of snap.docs) {
-    await deleteDoc(d.ref);
+    console.log("BOOKING ID:", bookingId);
+    console.log("DOCS EN CALENDAR:", snap.size);
+
+    for (const d of snap.docs) {
+      console.log("BORRANDO DOC:", d.id, d.data());
+      await deleteDoc(d.ref);
+    }
+
+    console.log("CANCELACIÓN COMPLETA");
+    location.reload();
+  } catch (err) {
+    console.error("CANCEL_BOOKING_ERROR:", err);
+    alert("Error cancelando: " + (err?.message || err));
   }
-
-  location.reload();
 }
 
 function renderRow(row) {
