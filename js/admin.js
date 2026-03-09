@@ -6,7 +6,6 @@ import {
   orderBy,
   doc,
   updateDoc,
-  where,
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
@@ -86,20 +85,30 @@ async function cancelBooking(bookingId) {
       cancelledBy: "admin"
     });
 
-    // 2) buscar bloqueos del calendario ligados a esa reserva
+    // 2) leer TODO CALENDAR y borrar los docs que correspondan a esa reserva
     const calRef = collection(db, "CALENDAR");
-    const q = query(calRef, where("bookingId", "==", bookingId));
-    const snap = await getDocs(q);
+    const snap = await getDocs(calRef);
 
     console.log("BOOKING ID:", bookingId);
-    console.log("DOCS EN CALENDAR:", snap.size);
+    console.log("TOTAL DOCS CALENDAR:", snap.size);
+
+    let deleted = 0;
 
     for (const d of snap.docs) {
-      console.log("BORRANDO DOC:", d.id, d.data());
-      await deleteDoc(d.ref);
+      const data = d.data();
+      const docBookingId = String(data.bookingId || "").trim();
+      const targetBookingId = String(bookingId || "").trim();
+
+      if (docBookingId === targetBookingId) {
+        console.log("BORRANDO DOC:", d.id, data);
+        await deleteDoc(d.ref);
+        deleted++;
+      }
     }
 
+    console.log("DOCS BORRADOS:", deleted);
     console.log("CANCELACIÓN COMPLETA");
+
     location.reload();
   } catch (err) {
     console.error("CANCEL_BOOKING_ERROR:", err);
