@@ -69,7 +69,6 @@ return `
   <tr>
       <td>${safeId}</td>
       <td>${safeName}</td>
-      <td>${safeEmail}</td>
       <td>${safePhone}</td>
       <td>${safeCheckin}</td>
       <td>${safeCheckout}</td>
