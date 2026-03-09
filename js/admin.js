@@ -3,7 +3,9 @@ import {
   collection,
   getDocs,
   query,
-  orderBy
+  orderBy,
+  doc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const loadingEl = document.getElementById("adminLoading");
@@ -66,9 +68,20 @@ function bindCancelButtons() {
       const ok = confirm(`¿Cancelar la reserva ${bookingId}?`);
       if (!ok) return;
 
-      alert(`Próximo paso: cancelar ${bookingId}`);
+      await cancelBooking(bookingId);
     });
   });
+}
+async function cancelBooking(bookingId) {
+  const bookingRef = doc(db, "BOOKINGS", bookingId);
+
+  await updateDoc(bookingRef, {
+    status: "cancelled",
+    cancelledAt: new Date().toISOString(),
+    cancelledBy: "admin"
+  });
+
+  location.reload();
 }
 
 function renderRow(row) {
