@@ -35,8 +35,11 @@ async function init() {
       return;
     }
 
-    tableBodyEl.innerHTML = rows.map(renderRow).join("");
-    showTable();
+    
+tableBodyEl.innerHTML = rows.map(renderRow).join("");
+bindCancelButtons();
+showTable();
+    
   } catch (err) {
     console.error("ADMIN_LOAD_ERROR:", err);
     showError(err?.message || "No se pudieron cargar las reservas.");
