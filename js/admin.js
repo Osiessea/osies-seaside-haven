@@ -74,16 +74,19 @@ function bindCancelButtons() {
     });
   });
 }
+
 async function cancelBooking(bookingId) {
   try {
     const bookingRef = doc(db, "BOOKINGS", bookingId);
 
+    // 1) marcar reserva como cancelada
     await updateDoc(bookingRef, {
       status: "cancelled",
       cancelledAt: new Date().toISOString(),
       cancelledBy: "admin"
     });
 
+    // 2) buscar bloqueos del calendario ligados a esa reserva
     const calRef = collection(db, "CALENDAR");
     const q = query(calRef, where("bookingId", "==", bookingId));
     const snap = await getDocs(q);
