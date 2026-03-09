@@ -12,7 +12,18 @@ const emptyEl = document.getElementById("adminEmpty");
 const tableWrapEl = document.getElementById("adminTableWrap");
 const tableBodyEl = document.getElementById("adminTableBody");
 
+const calEl = document.getElementById("adminCalendar");
+const calTitle = document.getElementById("calTitle");
+const calPrev = document.getElementById("calPrev");
+const calNext = document.getElementById("calNext");
+
+let currentMonth = new Date();
+
+if (calPrev) calPrev.onclick = () => changeMonth(-1);
+if (calNext) calNext.onclick = () => changeMonth(1);
+
 init();
+loadCalendar();
 
 async function init() {
   try {
@@ -22,29 +33,28 @@ async function init() {
     const q = query(bookingsRef, orderBy("checkin", "desc"));
     const snap = await getDocs(q);
 
-  const rows = snap.docs
-  .map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }))
-  .filter(row => row.status === "confirmed")
-  .sort((a, b) => new Date(b.checkin) - new Date(a.checkin));
-    
+    const rows = snap.docs
+      .map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+      .filter(row => row.status === "confirmed")
+      .sort((a, b) => new Date(b.checkin) - new Date(a.checkin));
+
     if (!rows.length) {
       showEmpty();
       return;
     }
 
-    
-tableBodyEl.innerHTML = rows.map(renderRow).join("");
-bindCancelButtons();
-showTable();
-    
+    tableBodyEl.innerHTML = rows.map(renderRow).join("");
+    bindCancelButtons();
+    showTable();
   } catch (err) {
     console.error("ADMIN_LOAD_ERROR:", err);
     showError(err?.message || "No se pudieron cargar las reservas.");
   }
 }
+
 function bindCancelButtons() {
   const buttons = document.querySelectorAll(".cancel-btn");
 
@@ -71,11 +81,8 @@ function renderRow(row) {
     currency: "USD"
   });
 
-  const status = String(row.status || "").trim() || "unknown";
-  const safeStatus = escapeHtml(status);
   const safeId = escapeHtml(row.id || "");
   const safeName = escapeHtml(row.name || "");
-  const safeEmail = escapeHtml(row.email || "");
   const safePhone = escapeHtml(row.phone || "");
   const safeCheckin = escapeHtml(row.checkin || "");
   const safeCheckout = escapeHtml(row.checkout || "");
@@ -83,8 +90,8 @@ function renderRow(row) {
   const safeUnits = escapeHtml(units);
   const safeTotal = escapeHtml(total);
 
-return `
-  <tr>
+  return `
+    <tr>
       <td>${safeId}</td>
       <td>${safeName}</td>
       <td>${safePhone}</td>
@@ -93,14 +100,13 @@ return `
       <td>${safeNights}</td>
       <td>${safeUnits}</td>
       <td>${safeTotal}</td>
-      <td><span class="status-badge ${safeStatus}">${safeStatus}</span></td>
       <td>
         <button class="cancel-btn" data-id="${safeId}">
           Cancelar
         </button>
       </td>
-  </tr>
-`;
+    </tr>
+  `;
 }
 
 function showLoading() {
@@ -141,23 +147,9 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-
-let currentMonth = new Date();
-
-const calEl = document.getElementById("adminCalendar");
-const calTitle = document.getElementById("calTitle");
-const calPrev = document.getElementById("calPrev");
-const calNext = document.getElementById("calNext");
-
-if (calPrev) calPrev.onclick = () => changeMonth(-1);
-if (calNext) calNext.onclick = () => changeMonth(1);
-
 async function loadCalendar() {
-
   const snap = await getDocs(collection(db, "CALENDAR"));
-
   const blocks = snap.docs.map(d => d.data());
-
   renderCalendar(blocks);
 }
 
@@ -167,7 +159,6 @@ function changeMonth(delta) {
 }
 
 function renderCalendar(blocks) {
-
   const y = currentMonth.getFullYear();
   const m = currentMonth.getMonth();
 
@@ -178,29 +169,28 @@ function renderCalendar(blocks) {
   const totalDays = last.getDate();
 
   const monthName = first.toLocaleString("default", { month: "long" });
-
   calTitle.textContent = `${monthName} ${y}`;
 
   let html = `<div class="cal-grid">`;
 
-  const names = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  names.forEach(n => html += `<div class="cal-dayname">${n}</div>`);
+  const names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  names.forEach(n => {
+    html += `<div class="cal-dayname">${n}</div>`;
+  });
 
   for (let i = 0; i < startDay; i++) {
     html += `<div class="cal-cell muted"></div>`;
   }
 
   for (let d = 1; d <= totalDays; d++) {
-
     const date = new Date(y, m, d);
-    const ymd = date.toISOString().slice(0,10);
+    const ymd = date.toISOString().slice(0, 10);
 
     const dayBlocks = blocks.filter(b => b.date === ymd);
 
     let tags = "";
-
     dayBlocks.forEach(b => {
-      tags += `<span class="cal-tag">${b.unitId.toUpperCase()}</span>`;
+      tags += `<span class="cal-tag">${String(b.unitId || "").toUpperCase()}</span>`;
     });
 
     html += `
@@ -212,8 +202,5 @@ function renderCalendar(blocks) {
   }
 
   html += `</div>`;
-
   calEl.innerHTML = html;
 }
-
-loadCalendar();
