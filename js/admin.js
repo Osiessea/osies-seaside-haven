@@ -69,13 +69,22 @@ function bindCancelButtons() {
       const ok = confirm(`¿Cancelar la reserva ${bookingId}?`);
       if (!ok) return;
 
-      await cancelBooking(bookingId);
+      await cancelBooking({
+        bookingId,
+        name: btn.dataset.name || "",
+        email: btn.dataset.email || "",
+        checkin: btn.dataset.checkin || "",
+        checkout: btn.dataset.checkout || "",
+        units: btn.dataset.units || "",
+        total: btn.dataset.totalraw || ""
+      });
     });
   });
 }
 
-async function cancelBooking(bookingId) {
+async function cancelBooking(data) {
   try {
+    const bookingId = data.bookingId || "";
     const bookingRef = doc(db, "BOOKINGS", bookingId);
 
     // 1) marcar reserva como cancelada
@@ -89,25 +98,42 @@ async function cancelBooking(bookingId) {
     const calRef = collection(db, "CALENDAR");
     const snap = await getDocs(calRef);
 
-    console.log("BOOKING ID:", bookingId);
-    console.log("TOTAL DOCS CALENDAR:", snap.size);
-
     let deleted = 0;
 
     for (const d of snap.docs) {
-      const data = d.data();
-      const docBookingId = String(data.bookingId || "").trim();
+      const row = d.data();
+      const docBookingId = String(row.bookingId || "").trim();
       const targetBookingId = String(bookingId || "").trim();
 
       if (docBookingId === targetBookingId) {
-        console.log("BORRANDO DOC:", d.id, data);
         await deleteDoc(d.ref);
         deleted++;
       }
     }
 
     console.log("DOCS BORRADOS:", deleted);
-    console.log("CANCELACIÓN COMPLETA");
+
+    // 3) enviar email de cancelación
+    if (data.email && window.emailjs) {
+      try {
+        await emailjs.send(
+          "service_ryvy50t",
+          "template_5o0kttb",
+          {
+            booking_id: bookingId,
+            name: data.name || "",
+            email: data.email || "",
+            checkin: data.checkin || "",
+            checkout: data.checkout || "",
+            units: data.units || "",
+            total: data.total || ""
+          }
+        );
+        console.log("EMAIL CANCELACIÓN ENVIADO");
+      } catch (mailErr) {
+        console.error("EMAIL_CANCEL_ERROR:", mailErr);
+      }
+    }
 
     location.reload();
   } catch (err) {
@@ -128,12 +154,14 @@ function renderRow(row) {
 
   const safeId = escapeHtml(row.id || "");
   const safeName = escapeHtml(row.name || "");
+  const safeEmail = escapeHtml(row.email || "");
   const safePhone = escapeHtml(row.phone || "");
   const safeCheckin = escapeHtml(row.checkin || "");
   const safeCheckout = escapeHtml(row.checkout || "");
   const safeNights = escapeHtml(String(row.nights ?? ""));
   const safeUnits = escapeHtml(units);
   const safeTotal = escapeHtml(total);
+  const safeTotalRaw = escapeHtml(String(row.total || ""));
 
   return `
     <tr>
@@ -146,7 +174,16 @@ function renderRow(row) {
       <td>${safeUnits}</td>
       <td>${safeTotal}</td>
       <td>
-        <button class="cancel-btn" data-id="${safeId}">
+        <button
+          class="cancel-btn"
+          data-id="${safeId}"
+          data-name="${safeName}"
+          data-email="${safeEmail}"
+          data-checkin="${safeCheckin}"
+          data-checkout="${safeCheckout}"
+          data-units="${safeUnits}"
+          data-totalraw="${safeTotalRaw}"
+        >
           Cancelar
         </button>
       </td>
