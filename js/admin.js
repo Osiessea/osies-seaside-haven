@@ -45,6 +45,21 @@ showTable();
     showError(err?.message || "No se pudieron cargar las reservas.");
   }
 }
+function bindCancelButtons() {
+  const buttons = document.querySelectorAll(".cancel-btn");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const bookingId = btn.dataset.id || "";
+      if (!bookingId) return;
+
+      const ok = confirm(`¿Cancelar la reserva ${bookingId}?`);
+      if (!ok) return;
+
+      alert(`Próximo paso: cancelar ${bookingId}`);
+    });
+  });
+}
 
 function renderRow(row) {
   const units = Array.isArray(row.units)
