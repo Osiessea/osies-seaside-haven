@@ -20,11 +20,16 @@ const calTitle = document.getElementById("calTitle");
 const calPrev = document.getElementById("calPrev");
 const calNext = document.getElementById("calNext");
 
+const filterButtons = document.querySelectorAll(".filter-btn");
+
 let currentMonth = new Date();
+let allRows = [];
+let currentFilter = "all";
 
 if (calPrev) calPrev.onclick = () => changeMonth(-1);
 if (calNext) calNext.onclick = () => changeMonth(1);
 
+bindFilterButtons();
 init();
 loadCalendar();
 
@@ -36,26 +41,48 @@ async function init() {
     const q = query(bookingsRef, orderBy("checkin", "desc"));
     const snap = await getDocs(q);
 
-    const rows = snap.docs
-      .map(doc => ({
-        id: doc.id,
-        ...doc.data()
+    allRows = snap.docs
+      .map(d => ({
+        id: d.id,
+        ...d.data()
       }))
-      .filter(row => row.status === "confirmed")
       .sort((a, b) => new Date(b.checkin) - new Date(a.checkin));
 
-    if (!rows.length) {
-      showEmpty();
-      return;
-    }
-
-    tableBodyEl.innerHTML = rows.map(renderRow).join("");
-    bindCancelButtons();
-    showTable();
+    renderTable();
   } catch (err) {
     console.error("ADMIN_LOAD_ERROR:", err);
     showError(err?.message || "No se pudieron cargar las reservas.");
   }
+}
+
+function bindFilterButtons() {
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentFilter = btn.dataset.filter || "all";
+
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      renderTable();
+    });
+  });
+}
+
+function renderTable() {
+  const rows = allRows.filter(row => {
+    if (currentFilter === "all") return true;
+    return String(row.status || "").trim() === currentFilter;
+  });
+
+  if (!rows.length) {
+    tableBodyEl.innerHTML = "";
+    showEmpty();
+    return;
+  }
+
+  tableBodyEl.innerHTML = rows.map(renderRow).join("");
+  bindCancelButtons();
+  showTable();
 }
 
 function bindCancelButtons() {
@@ -87,14 +114,12 @@ async function cancelBooking(data) {
     const bookingId = data.bookingId || "";
     const bookingRef = doc(db, "BOOKINGS", bookingId);
 
-    // 1) marcar reserva como cancelada
     await updateDoc(bookingRef, {
       status: "cancelled",
       cancelledAt: new Date().toISOString(),
       cancelledBy: "admin"
     });
 
-    // 2) leer TODO CALENDAR y borrar los docs que correspondan a esa reserva
     const calRef = collection(db, "CALENDAR");
     const snap = await getDocs(calRef);
 
@@ -113,7 +138,6 @@ async function cancelBooking(data) {
 
     console.log("DOCS BORRADOS:", deleted);
 
-    // 3) enviar email de cancelación
     if (data.email && window.emailjs) {
       try {
         await emailjs.send(
@@ -135,7 +159,17 @@ async function cancelBooking(data) {
       }
     }
 
-    location.reload();
+    const target = allRows.find(row => row.id === bookingId);
+    if (target) {
+      target.status = "cancelled";
+      target.cancelledAt = new Date().toISOString();
+      target.cancelledBy = "admin";
+    }
+
+    renderTable();
+    await loadCalendar();
+
+    alert("Reserva cancelada correctamente.");
   } catch (err) {
     console.error("CANCEL_BOOKING_ERROR:", err);
     alert("Error cancelando: " + (err?.message || err));
@@ -162,6 +196,24 @@ function renderRow(row) {
   const safeUnits = escapeHtml(units);
   const safeTotal = escapeHtml(total);
   const safeTotalRaw = escapeHtml(String(row.total || ""));
+  const safeStatus = escapeHtml(String(row.status || "pending_payment"));
+
+  const actionHtml = safeStatus === "confirmed"
+    ? `
+      <button
+        class="cancel-btn"
+        data-id="${safeId}"
+        data-name="${safeName}"
+        data-email="${safeEmail}"
+        data-checkin="${safeCheckin}"
+        data-checkout="${safeCheckout}"
+        data-units="${safeUnits}"
+        data-totalraw="${safeTotalRaw}"
+      >
+        Cancelar
+      </button>
+    `
+    : `<span class="action-empty">—</span>`;
 
   return `
     <tr>
@@ -173,22 +225,21 @@ function renderRow(row) {
       <td>${safeNights}</td>
       <td>${safeUnits}</td>
       <td>${safeTotal}</td>
-      <td>
-        <button
-          class="cancel-btn"
-          data-id="${safeId}"
-          data-name="${safeName}"
-          data-email="${safeEmail}"
-          data-checkin="${safeCheckin}"
-          data-checkout="${safeCheckout}"
-          data-units="${safeUnits}"
-          data-totalraw="${safeTotalRaw}"
-        >
-          Cancelar
-        </button>
-      </td>
+      <td>${renderStatusBadge(safeStatus)}</td>
+      <td>${actionHtml}</td>
     </tr>
   `;
+}
+
+function renderStatusBadge(status) {
+  const labels = {
+    confirmed: "Confirmada",
+    cancelled: "Cancelada",
+    pending_payment: "Pendiente"
+  };
+
+  const safeLabel = labels[status] || status || "Sin estado";
+  return `<span class="status-badge ${status}">${escapeHtml(safeLabel)}</span>`;
 }
 
 function showLoading() {
