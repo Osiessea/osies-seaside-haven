@@ -298,11 +298,17 @@
     <p>Reservas de Osies Seaside Haven</p>
   </div>
 
-  <div class="admin-filters">
-    <button type="button" class="filter-btn active" data-filter="all">Todas</button>
-    <button type="button" class="filter-btn" data-filter="confirmed">Confirmadas</button>
-    <button type="button" class="filter-btn" data-filter="cancelled">Canceladas</button>
-    <button type="button" class="filter-btn" data-filter="pending_payment">Pendientes</button>
+  <div class="admin-actions">
+    <div class="admin-filters">
+      <button type="button" class="filter-btn active" data-filter="all">Todas</button>
+      <button type="button" class="filter-btn" data-filter="confirmed">Confirmadas</button>
+      <button type="button" class="filter-btn" data-filter="cancelled">Canceladas</button>
+      <button type="button" class="filter-btn" data-filter="pending_payment">Pendientes</button>
+    </div>
+
+    <button type="button" id="cleanPendingBtn" class="clean-btn">
+      Limpiar pendientes > 30 min
+    </button>
   </div>
 </div>
       
