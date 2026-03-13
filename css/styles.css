@@ -337,3 +337,88 @@ height:240px;
 }
 
 }
+/* =========================
+   CALENDAR FIX (NO ROMPE JS)
+   ========================= */
+
+.calendar{
+  margin-top:12px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(11,47,79,.10);
+  background:#ffffff;
+  box-shadow:0 10px 24px rgba(11,47,79,.08);
+}
+
+.cal-grid{
+  display:grid !important;
+  grid-template-columns:repeat(7,1fr) !important;
+  width:100%;
+}
+
+.cal-dow{
+  padding:10px;
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+  color:#5f7288;
+  background:#f4f7fa;
+  border-bottom:1px solid rgba(11,47,79,.08);
+}
+
+.cal-cell{
+  min-height:60px !important;
+  padding:8px;
+  border-bottom:1px solid rgba(11,47,79,.08);
+  border-right:1px solid rgba(11,47,79,.05);
+  cursor:pointer;
+  transition:background .12s ease;
+}
+
+.cal-cell:hover{
+  background:#f7fafc;
+}
+
+.cal-cell.disabled{
+  opacity:.40;
+  cursor:not-allowed;
+}
+
+.cal-num{
+  font-size:13px;
+  font-weight:900;
+  color:#0b2f4f;
+}
+
+.cal-tag{
+  margin-top:4px;
+  font-size:10px;
+  color:#6a7f96;
+}
+
+.cal-cell.blocked{
+  background:rgba(217,102,102,.18);
+}
+
+.cal-cell.selected{
+  background:rgba(47,124,195,.25);
+}
+
+.cal-cell.inrange{
+  background:rgba(47,124,195,.12);
+}
+
+/* mobile */
+
+@media (max-width:520px){
+
+.cal-cell{
+min-height:48px !important;
+padding:6px;
+}
+
+.cal-num{
+font-size:12px;
+}
+
+}
