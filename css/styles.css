@@ -2079,3 +2079,212 @@ input:focus{
     align-items: flex-start;
   }
 }
+/* =========================
+   OSIES STEP 2
+   Header simple + hamburger + hero limpio
+   ========================= */
+
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.brand.compact{
+  min-width: 0;
+  gap: 0;
+}
+
+.brand.compact .brand-text{
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #163a70;
+  letter-spacing: -0.02em;
+}
+
+/* ocultamos elementos viejos del branding superior */
+.brand-copy,
+.brand-sub,
+.logo{
+  display: none;
+}
+
+/* hamburger */
+.menu{
+  position: relative;
+}
+
+.menu summary{
+  list-style: none;
+}
+
+.menu summary::-webkit-details-marker{
+  display: none;
+}
+
+.menu-toggle{
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid rgba(18,58,143,0.14);
+  background: rgba(255,255,255,0.72);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(18,58,143,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.menu-toggle span{
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #163a70;
+  display: block;
+}
+
+.menu-panel{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 200px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.90);
+  border: 1px solid rgba(255,255,255,0.42);
+  box-shadow: 0 18px 40px rgba(18,58,143,0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: grid;
+  gap: 6px;
+}
+
+.menu-link{
+  padding: 12px 14px;
+  border-radius: 14px;
+  color: #163a70;
+  font-weight: 800;
+}
+
+.menu-link:hover{
+  background: rgba(15,111,214,0.08);
+}
+
+/* hero más limpio */
+.hero{
+  grid-template-columns: 1fr;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.hero-left{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-right{
+  margin-top: 8px;
+}
+
+.hero-brandmark.centered{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 14px;
+}
+
+.hero-logo{
+  width: min(100%, 360px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 22px rgba(18,58,143,0.10));
+  mix-blend-mode: multiply;
+}
+
+.h1.centered{
+  text-align: center;
+  max-width: 12ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lead.centered{
+  text-align: center;
+  max-width: 34ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions.centered-actions{
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-metrics,
+.metric{
+  display: none !important;
+}
+
+/* botón admin fuera */
+.admin-link{
+  display: none !important;
+}
+
+/* nav vieja fuera */
+.nav{
+  display: none !important;
+}
+
+/* mejora del badge */
+.badge{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* móvil */
+@media (max-width: 640px){
+  .topbar{
+    padding: 12px 14px;
+  }
+
+  .brand.compact .brand-text{
+    font-size: 0.95rem;
+    line-height: 1.15;
+    max-width: 11ch;
+  }
+
+  .menu-toggle{
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .hero{
+    padding: 22px 16px;
+  }
+
+  .hero-logo{
+    width: min(100%, 300px);
+  }
+
+  .h1.centered{
+    font-size: 2.1rem;
+    line-height: 1.04;
+    max-width: 10ch;
+  }
+
+  .lead.centered{
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
