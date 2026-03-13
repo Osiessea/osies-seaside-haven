@@ -388,19 +388,7 @@ input{
   margin-top: 4px;
 }
 
-.badge{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-inline: auto;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(216,179,106,0.32);
-  background: rgba(216,179,106,0.12);
-  color: #8e6821;
-  font-size: 12px;
-  font-weight: 800;
-}
+
 
 .hero-brandmark{
   width: 100%;
