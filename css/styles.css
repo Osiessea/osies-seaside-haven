@@ -2288,3 +2288,342 @@ input:focus{
     line-height: 1.6;
   }
 }
+/* =========================
+   OSIES STEP 3
+   Glass crystal + soft shimmer
+   Pegar al final del archivo
+   ========================= */
+
+:root{
+  --bg: #edf4fa;
+  --surface: rgba(255,255,255,0.56);
+  --surface-strong: rgba(255,255,255,0.72);
+  --surface-soft: rgba(255,255,255,0.42);
+
+  --text: #16314f;
+  --muted: #60748c;
+
+  --stroke: rgba(255,255,255,0.42);
+  --stroke-dark: rgba(18,58,143,0.10);
+
+  --accent: #2a8cff;
+  --accent2: #123a8f;
+  --gold: #e0bc68;
+
+  --shadow-glass:
+    0 10px 30px rgba(18,58,143,0.08),
+    0 2px 10px rgba(18,58,143,0.04);
+
+  --shadow-glow:
+    0 0 0 1px rgba(255,255,255,0.25),
+    0 12px 34px rgba(42,140,255,0.10);
+
+  --blur: blur(18px);
+}
+
+/* Fondo más fino y lujoso */
+body{
+  background:
+    radial-gradient(circle at 12% 10%, rgba(72,170,255,0.16), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(224,188,104,0.14), transparent 20%),
+    radial-gradient(circle at 50% 100%, rgba(18,58,143,0.08), transparent 30%),
+    linear-gradient(180deg, #f7fbff 0%, #eef4fa 48%, #e8f0f7 100%);
+}
+
+/* Base glass consistente */
+.card,
+.mini-card,
+.metric,
+.calendar,
+.summary,
+.g-frame,
+.photo-main,
+.photo-tile,
+.booking-right .card,
+.units-pool,
+.unit-btn,
+.menu-panel,
+.social-link,
+.g-btn{
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.68) 0%,
+    rgba(255,255,255,0.50) 100%
+  );
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  overflow: hidden;
+}
+
+/* Destello superior tipo cristal */
+.card::before,
+.mini-card::before,
+.metric::before,
+.calendar::before,
+.summary::before,
+.g-frame::before,
+.photo-main::before,
+.photo-tile::before,
+.booking-right .card::before,
+.units-pool::before,
+.unit-btn::before,
+.menu-panel::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.42) 0%,
+      rgba(255,255,255,0.16) 18%,
+      rgba(255,255,255,0.04) 34%,
+      transparent 52%
+    );
+  pointer-events: none;
+}
+
+/* Borde interno sutil */
+.card::after,
+.mini-card::after,
+.metric::after,
+.calendar::after,
+.summary::after,
+.g-frame::after,
+.photo-main::after,
+.photo-tile::after,
+.booking-right .card::after,
+.units-pool::after,
+.unit-btn::after{
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border-top: 1px solid rgba(255,255,255,0.34);
+  pointer-events: none;
+}
+
+/* Hero más premium */
+.hero{
+  position: relative;
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.46)),
+    linear-gradient(135deg, rgba(42,140,255,0.08), rgba(224,188,104,0.06));
+  border: 1px solid rgba(255,255,255,0.44);
+  box-shadow:
+    0 24px 60px rgba(18,58,143,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.34);
+  overflow: hidden;
+}
+
+.hero::before{
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 55%;
+  height: 120%;
+  background: linear-gradient(
+    115deg,
+    rgba(255,255,255,0.38) 0%,
+    rgba(255,255,255,0.16) 22%,
+    rgba(255,255,255,0.04) 38%,
+    transparent 56%
+  );
+  transform: rotate(6deg);
+  pointer-events: none;
+}
+
+.hero::after{
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(224,188,104,0.18), transparent 68%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* Topbar más cristalina */
+.topbar{
+  background: rgba(255,255,255,0.46);
+  border-bottom: 1px solid rgba(255,255,255,0.34);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(18,58,143,0.06);
+}
+
+/* Botones más premium */
+.btn{
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.58));
+  border: 1px solid rgba(255,255,255,0.44);
+  box-shadow:
+    0 8px 20px rgba(18,58,143,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.42);
+  overflow: hidden;
+}
+
+.btn::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.34),
+    transparent 42%
+  );
+  pointer-events: none;
+}
+
+.btn.primary{
+  color: #fff;
+  background:
+    linear-gradient(135deg, #3aa0ff 0%, #1e6fd8 42%, #123a8f 100%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 16px 34px rgba(42,140,255,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.20);
+}
+
+.btn.primary:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    0 20px 38px rgba(42,140,255,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.24);
+}
+
+/* Menú toggle más bonito */
+.menu-toggle{
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.58));
+  border: 1px solid rgba(255,255,255,0.42);
+  box-shadow:
+    0 10px 24px rgba(18,58,143,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.36);
+}
+
+.menu-toggle span{
+  background: linear-gradient(90deg, #163a70, #245da8);
+}
+
+/* Títulos con más presencia */
+.h1{
+  color: #15314f;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.h2, .h3, .mini-k, .k, .price-big{
+  color: #183656;
+}
+
+/* Inputs más finos */
+input{
+  background: rgba(255,255,255,0.74);
+  border: 1px solid rgba(255,255,255,0.44);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.34),
+    0 4px 14px rgba(18,58,143,0.04);
+}
+
+input:focus{
+  border-color: rgba(42,140,255,0.34);
+  box-shadow:
+    0 0 0 4px rgba(42,140,255,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.34);
+}
+
+/* Unidades más bonitas */
+.unit-btn{
+  border-radius: 20px;
+  transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.unit-btn:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 28px rgba(18,58,143,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.34);
+}
+
+.unit-btn.selected,
+.unit-btn.is-selected{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,255,255,0.60)),
+    linear-gradient(135deg, rgba(224,188,104,0.12), rgba(42,140,255,0.08));
+  border-color: rgba(224,188,104,0.52);
+  box-shadow:
+    0 14px 30px rgba(224,188,104,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.36);
+}
+
+/* Pool más llamativa */
+.units-pool{
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.34), transparent 24%),
+    linear-gradient(180deg, rgba(88,190,255,0.24), rgba(24,117,214,0.14));
+  border: 1px solid rgba(255,255,255,0.38);
+  color: #174780;
+}
+
+/* Galería con más profundidad */
+.g-frame,
+.photo-main,
+.photo-tile{
+  box-shadow:
+    0 18px 40px rgba(18,58,143,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.24);
+}
+
+.g-img,
+.photo-main img,
+.photo-tile img,
+.thumb img{
+  transition: transform .45s ease;
+}
+
+.g-frame:hover .g-img,
+.photo-main:hover img,
+.photo-tile:hover img,
+.thumb:hover img{
+  transform: scale(1.03);
+}
+
+/* Flechas y social icons */
+.g-btn,
+.social-link{
+  box-shadow:
+    0 10px 22px rgba(18,58,143,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.34);
+}
+
+/* Footer más fino */
+.footer{
+  border-top: 1px solid rgba(255,255,255,0.34);
+}
+
+/* Móvil */
+@media (max-width: 640px){
+  .hero{
+    border-radius: 24px;
+  }
+
+  .card,
+  .mini-card,
+  .metric,
+  .calendar,
+  .summary,
+  .g-frame,
+  .photo-main,
+  .photo-tile,
+  .booking-right .card,
+  .units-pool,
+  .unit-btn{
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+}
