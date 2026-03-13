@@ -23,6 +23,10 @@ const calNext = document.getElementById("calNext");
 const filterButtons = document.querySelectorAll(".filter-btn");
 const cleanPendingBtn = document.getElementById("cleanPendingBtn");
 
+const statConfirmedEl = document.getElementById("statConfirmed");
+const statCancelledEl = document.getElementById("statCancelled");
+const statRevenueEl = document.getElementById("statRevenue");
+
 let currentMonth = new Date();
 let allRows = [];
 let currentFilter = "all";
@@ -105,10 +109,11 @@ function bindCleanPendingButton() {
         deletedBookings++;
       }
 
-      allRows = allRows.filter(row => {
+        allRows = allRows.filter(row => {
         return !oldPendingRows.some(p => p.id === row.id);
       });
 
+      renderStats();
       renderTable();
       await loadCalendar();
 
@@ -131,14 +136,41 @@ async function init() {
     const q = query(bookingsRef, orderBy("checkin", "desc"));
     const snap = await getDocs(q);
 
-    allRows = snap.docs
+        allRows = snap.docs
       .map(d => ({
         id: d.id,
         ...d.data()
       }))
       .sort((a, b) => new Date(b.checkin) - new Date(a.checkin));
 
+    renderStats();
     renderTable();
+
+    function renderStats() {
+  const confirmedRows = allRows.filter(row => String(row.status || "").trim() === "confirmed");
+  const cancelledRows = allRows.filter(row => String(row.status || "").trim() === "cancelled");
+
+  const revenue = confirmedRows.reduce((sum, row) => {
+    return sum + Number(row.total || 0);
+  }, 0);
+
+  if (statConfirmedEl) {
+    statConfirmedEl.textContent = String(confirmedRows.length);
+  }
+
+  if (statCancelledEl) {
+    statCancelledEl.textContent = String(cancelledRows.length);
+  }
+
+  if (statRevenueEl) {
+    statRevenueEl.textContent = revenue.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+  }
+}
+
+    
   } catch (err) {
     console.error("ADMIN_LOAD_ERROR:", err);
     showError(err?.message || "No se pudieron cargar las reservas.");
@@ -250,15 +282,19 @@ async function cancelBooking(data) {
     }
 
     const target = allRows.find(row => row.id === bookingId);
-    if (target) {
+    
+        if (target) {
       target.status = "cancelled";
       target.cancelledAt = new Date().toISOString();
       target.cancelledBy = "admin";
     }
 
+    renderStats();
     renderTable();
     await loadCalendar();
 
+
+    
     alert("Reserva cancelada correctamente.");
   } catch (err) {
     console.error("CANCEL_BOOKING_ERROR:", err);
