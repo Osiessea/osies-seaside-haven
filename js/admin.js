@@ -21,6 +21,7 @@ const calPrev = document.getElementById("calPrev");
 const calNext = document.getElementById("calNext");
 
 const filterButtons = document.querySelectorAll(".filter-btn");
+const cleanPendingBtn = document.getElementById("cleanPendingBtn");
 
 let currentMonth = new Date();
 let allRows = [];
