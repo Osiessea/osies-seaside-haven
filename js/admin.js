@@ -31,8 +31,97 @@ if (calPrev) calPrev.onclick = () => changeMonth(-1);
 if (calNext) calNext.onclick = () => changeMonth(1);
 
 bindFilterButtons();
+bindCleanPendingButton();
 init();
 loadCalendar();
+
+function bindCleanPendingButton() {
+  if (!cleanPendingBtn) return;
+
+  cleanPendingBtn.addEventListener("click", async () => {
+    const pendingRows = allRows.filter(row => {
+      return String(row.status || "").trim() === "pending_payment";
+    });
+
+    if (!pendingRows.length) {
+      alert("No hay reservas pendientes para limpiar.");
+      return;
+    }
+
+    const now = Date.now();
+    const THIRTY_MIN = 30 * 60 * 1000;
+
+    const oldPendingRows = pendingRows.filter(row => {
+      const createdRaw = row.createdAt;
+
+      if (!createdRaw) return false;
+
+      let createdMs = NaN;
+
+      if (typeof createdRaw?.toDate === "function") {
+        createdMs = createdRaw.toDate().getTime();
+      } else {
+        createdMs = new Date(createdRaw).getTime();
+      }
+
+      if (Number.isNaN(createdMs)) return false;
+
+      return (now - createdMs) > THIRTY_MIN;
+    });
+
+    if (!oldPendingRows.length) {
+      alert("No hay reservas pending_payment con más de 30 minutos.");
+      return;
+    }
+
+    const ok = confirm(`Se eliminarán ${oldPendingRows.length} reservas pendientes viejas. ¿Continuar?`);
+    if (!ok) return;
+
+    try {
+      cleanPendingBtn.disabled = true;
+      cleanPendingBtn.textContent = "Limpiando...";
+
+      let deletedBookings = 0;
+      let deletedCalendarDocs = 0;
+
+      const calSnap = await getDocs(collection(db, "CALENDAR"));
+      const calDocs = calSnap.docs;
+
+      for (const row of oldPendingRows) {
+        const bookingId = String(row.id || "").trim();
+        if (!bookingId) continue;
+
+        for (const c of calDocs) {
+          const cData = c.data();
+          const calBookingId = String(cData.bookingId || "").trim();
+
+          if (calBookingId === bookingId) {
+            await deleteDoc(c.ref);
+            deletedCalendarDocs++;
+          }
+        }
+
+        await deleteDoc(doc(db, "BOOKINGS", bookingId));
+        deletedBookings++;
+      }
+
+      allRows = allRows.filter(row => {
+        return !oldPendingRows.some(p => p.id === row.id);
+      });
+
+      renderTable();
+      await loadCalendar();
+
+      alert(`Limpieza completada.\nReservas borradas: ${deletedBookings}\nBloqueos borrados: ${deletedCalendarDocs}`);
+    } catch (err) {
+      console.error("CLEAN_PENDING_ERROR:", err);
+      alert("Error limpiando pendientes: " + (err?.message || err));
+    } finally {
+      cleanPendingBtn.disabled = false;
+      cleanPendingBtn.textContent = "Limpiar pendientes > 30 min";
+    }
+  });
+}
 
 async function init() {
   try {
