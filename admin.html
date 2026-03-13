@@ -56,7 +56,57 @@
       color: #6b7280;
       font-size: .95rem;
     }
+    .admin-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
+.filter-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background: #f9fafb;
+}
+
+.filter-btn.active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+.status-badge.confirmed {
+  background: #ecfdf3;
+  color: #067647;
+  border: 1px solid #abefc6;
+}
+
+.status-badge.cancelled {
+  background: #fef3f2;
+  color: #b42318;
+  border: 1px solid #fecdca;
+}
+
+.status-badge.pending_payment {
+  background: #fffaeb;
+  color: #b54708;
+  border-color: #fedf89;
+}
+
+.action-empty {
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+
+    
     .admin-table-wrap {
       width: 100%;
       overflow-x: auto;
@@ -220,12 +270,21 @@
 <body>
   <main class="admin-wrap">
     <section class="admin-card">
+
+      
       <div class="admin-head">
-        <div>
-          <h1>Panel Admin</h1>
-          <p>Reservas de Osies Seaside Haven</p>
-        </div>
-      </div>
+  <div>
+    <h1>Panel Admin</h1>
+    <p>Reservas de Osies Seaside Haven</p>
+  </div>
+
+  <div class="admin-filters">
+    <button type="button" class="filter-btn active" data-filter="all">Todas</button>
+    <button type="button" class="filter-btn" data-filter="confirmed">Confirmadas</button>
+    <button type="button" class="filter-btn" data-filter="cancelled">Canceladas</button>
+    <button type="button" class="filter-btn" data-filter="pending_payment">Pendientes</button>
+  </div>
+</div>
       
 <div class="admin-calendar-head">
   <button id="calPrev" type="button">←</button>
@@ -242,16 +301,17 @@
         <table class="admin-table">
           <thead>
             <tr>
-              <th>Confirmación</th>
-              <th>Cliente</th>
-              <th>Teléfono</th>
-              <th>Check-in</th>
-              <th>Check-out</th>
-              <th>Noches</th>
-              <th>Unidad</th>
-              <th>Total</th>
-              <th>Estado</th>
-            </tr>
+  <th>Confirmación</th>
+  <th>Cliente</th>
+  <th>Teléfono</th>
+  <th>Check-in</th>
+  <th>Check-out</th>
+  <th>Noches</th>
+  <th>Unidad</th>
+  <th>Total</th>
+  <th>Estado</th>
+  <th>Acción</th>
+</tr>
           </thead>
           <tbody id="adminTableBody"></tbody>
         </table>
