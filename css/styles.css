@@ -1382,7 +1382,7 @@ input:focus{
 
 .footer-desc{
   line-height:1.7;
-  color:#9fb2c4;
+color:#5f7288;
   max-width:340px;
 }
 
@@ -1395,7 +1395,7 @@ input:focus{
 
 .footer-item{
   margin-bottom:12px;
-  color:#9fb2c4;
+color:#5f7288;
 }
 
 .footer-social{
@@ -1408,7 +1408,8 @@ input:focus{
   width:44px;
   height:44px;
   border-radius:50%;
-  background:#0c3557;
+background:#e8f0f7;
+  color:#174e96;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1417,7 +1418,7 @@ input:focus{
 }
 
 .footer-social-link:hover{
-  background:#0f4472;
+  background:#dbe8f5;
 }
 
 .footer-social-link svg{
@@ -1431,7 +1432,7 @@ input:focus{
 }
 
 .footer-bottom{
-  border-top:1px solid rgba(255,255,255,0.08);
+  border-top:1px solid rgba(24,49,77,0.08);
   margin-top:50px;
   padding-top:20px;
   text-align:center;
