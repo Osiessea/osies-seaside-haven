@@ -1332,12 +1332,11 @@ input:focus{
 .space-row:nth-child(even) .space-text{
   order: 1;
 }
-@media (max-width: 640px){
-  .space-row{
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 56px;
-  }
+.brand.compact .brand-text{
+  font-size: 1.05rem;
+  line-height: 1.05;
+  max-width: none;
+}
 
   .space-image{
     height: 320px;
