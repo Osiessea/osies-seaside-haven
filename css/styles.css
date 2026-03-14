@@ -1208,3 +1208,23 @@ input:focus{
     height: 240px;
   }
 }
+/* ----- NUESTROS ESPACIOS ----- */
+
+.espacios-title{
+  text-align:center;
+  font-size: clamp(2.2rem,4vw,3rem);
+  font-weight:900;
+  letter-spacing:-0.02em;
+  color:#17314d;
+}
+
+.section-head{
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:10px;
+}
+
+#galeria{
+  margin-top:80px;
+}
