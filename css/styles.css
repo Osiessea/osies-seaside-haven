@@ -595,7 +595,7 @@ max-width: 1280px;
 /* ---------- Photo grid ---------- */
 
 .grid-photos{
-  margin-top: 12px;
+  margin-top: 60px;
   display: grid;
   grid-template-columns: 1.35fr .65fr;
   gap: 12px;
