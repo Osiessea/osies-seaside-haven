@@ -1366,12 +1366,10 @@ input:focus{
   padding:70px 0 30px;
 }
 
-.footer-wrap{
-  width:min(1200px, calc(100% - 40px));
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:1.2fr 1fr 1fr;
-  gap:60px;
+.footer-premium{
+  background:#f3f7fb;
+  padding:70px 0 30px;
+  width:100%;
 }
 
 .footer-logo{
@@ -1441,6 +1439,23 @@ background:#e8f0f7;
 
 .footer-bottom a{
   color:#fff;
+  text-decoration:none;
+}
+
+.footer-bottom a:hover{
+  text-decoration:underline;
+}
+.footer-bottom{
+  border-top:1px solid rgba(24,49,77,0.08);
+  margin-top:40px;
+  padding-top:20px;
+  text-align:center;
+  color:#5f7288;
+  font-size:14px;
+}
+.footer-bottom a{
+  color:#174e96;
+  font-weight:500;
   text-decoration:none;
 }
 
