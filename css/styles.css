@@ -1332,3 +1332,29 @@ input:focus{
 .space-row:nth-child(even) .space-text{
   order: 1;
 }
+@media (max-width: 640px){
+  .space-row{
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .space-image{
+    height: 320px;
+  }
+
+  .space-text{
+    max-width: 100%;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .space-row:nth-child(even){
+    grid-template-columns: 1fr;
+  }
+
+  .space-row:nth-child(even) .space-image,
+  .space-row:nth-child(even) .space-text{
+    order: initial;
+  }
+}
