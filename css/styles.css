@@ -1642,3 +1642,26 @@ background:#e8f0f7;
     height: 48px !important;
   }
 }
+/* alternar fotos izquierda / derecha */
+
+.space-row{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items:center;
+  gap:60px;
+  margin-bottom:90px;
+}
+
+/* filas pares se invierten */
+
+.space-row:nth-child(even){
+  grid-template-columns: 1fr 1.3fr;
+}
+
+.space-row:nth-child(even) .space-image{
+  order:2;
+}
+
+.space-row:nth-child(even) .space-text{
+  order:1;
+}
