@@ -1269,3 +1269,66 @@ input:focus{
 .space-row:nth-child(even) .space-text{
   order:1;
 }
+/* ---- detalle de espacios ---- */
+
+.grid-photos{
+  display: block;
+  margin-top: 80px;
+}
+
+.space-row{
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+
+.space-image{
+  height: 520px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.72);
+  box-shadow: 0 18px 40px rgba(18,46,79,0.10);
+}
+
+.space-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.space-text{
+  max-width: 520px;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: #4f6175;
+}
+
+.space-text::before{
+  content: "ESPACIO DESTACADO";
+  display: block;
+  margin-bottom: 14px;
+  font-size: .92rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #c9971a;
+}
+
+.space-text p{
+  margin: 0;
+}
+
+.space-row:nth-child(even){
+  grid-template-columns: 1fr 1.35fr;
+}
+
+.space-row:nth-child(even) .space-image{
+  order: 2;
+}
+
+.space-row:nth-child(even) .space-text{
+  order: 1;
+}
