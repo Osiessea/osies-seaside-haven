@@ -213,6 +213,7 @@ async function hydrateUnits(){
   }
 
   function renderPhotoGrid(){
+  return;
     const grid = $("photoGrid");
     if (!grid) return;
 
