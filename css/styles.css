@@ -1665,3 +1665,17 @@ background:#e8f0f7;
 .space-row:nth-child(even) .space-text{
   order:1;
 }
+/* iPhone / móvil */
+@media (max-width: 768px){
+
+  .space-row{
+    grid-template-columns: 1fr !important;
+    gap:28px;
+  }
+
+  .space-row:nth-child(even) .space-image,
+  .space-row:nth-child(even) .space-text{
+    order:initial !important;
+  }
+
+}
