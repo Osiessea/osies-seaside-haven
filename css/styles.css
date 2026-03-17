@@ -1918,9 +1918,10 @@ background:#e8f0f7;
 /* ===== DISPONIBILIDAD + NAVEGACION ===== */
 
 .calendar-head{
-  margin-top: 8px;
-  display: grid;
-  justify-items: center;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 14px;
   text-align: center;
 }
