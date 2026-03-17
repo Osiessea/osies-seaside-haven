@@ -208,6 +208,7 @@
 
   <div class="units-pool">Piscina</div>
 
+
   <button class="unit-btn" data-unit="a2" data-price="165">A2</button>
   <button class="unit-btn" data-unit="b2" data-price="165">B2</button>
 
@@ -215,15 +216,14 @@
 
           
           <div class="calendar-head">
-            <div>
-              <div class="k">Disponibilidad</div>
-              <div class="muted" id="calMeta">Selecciona fechas</div>
-            </div>
-            <div class="cal-nav">
-              <button class="btn ghost" id="calPrev" type="button">Anterior</button>
-              <button class="btn ghost" id="calNext" type="button">Siguiente</button>
-            </div>
-          </div>
+  <h3 class="h3">Disponibilidad</h3>
+
+  <div class="cal-nav">
+    <button class="btn" id="prevMonth">Anterior</button>
+    <div class="cal-month" id="monthLabel">marzo de 2026</div>
+    <button class="btn" id="nextMonth">Siguiente</button>
+  </div>
+</div>
 
           <div class="calendar" id="calendar" aria-label="Calendario de disponibilidad"></div>
 
