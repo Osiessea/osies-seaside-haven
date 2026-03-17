@@ -1178,9 +1178,8 @@ input:focus{
   }
 
   .calendar{
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  overflow: visible;
+}
 
   .cal-dow{
     padding: 10px 6px;
