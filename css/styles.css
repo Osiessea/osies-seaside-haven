@@ -1955,16 +1955,16 @@ background:#e8f0f7;
 
 @media (max-width: 720px){
   .units-map{
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 120px 1fr;
+    grid-template-rows: auto auto;
     gap: 14px;
     margin-bottom: 28px;
   }
 
   .units-pool{
-    grid-column: 1 / span 2;
-    grid-row: 2;
-    min-height: 120px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    min-height: 170px;
   }
 
   .cal-nav{
